@@ -4,8 +4,8 @@ See the documentation: /doc/index.html
 Notes to me
 -----------
 
-- include gmake executable
-- TCC and DMC compiler links and information
+- include gmake executable?
+- TCC and DMC compiler links and information?
 - pthread required to build demo_4.c on Windows
 
 

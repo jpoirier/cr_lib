@@ -35,18 +35,17 @@ static void cleanup(void);
 static void signal_handler(int signal);
 static void* isr_thread(void* args);
 
-//--------------- Some simulated-ISR thread objects
+//--------------- Some simulated ISR thread objects
 struct sched_param          isr_thread_sched;
 pthread_attr_t              isr_thread_attr;
 int32_t                     isr_thread_run  = false;
 pthread_t                   isr_thread_id   = 0;
 
 
-// Our simulate-ISR thread
+// Our simulated ISR thread
 void* isr_thread(void* args)
 {
     static uint32_t volatile cnt = 0;
-
 
     while(isr_thread_run)
     {
@@ -76,10 +75,11 @@ void* isr_thread(void* args)
 
 void Thread_A(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -92,17 +92,18 @@ void Thread_A(void)
         printf("- Thread_A yielding to Thread_B\n");
         assert(Thread_B && "Thread_A: Thread_B pointer is invalid!");
 
-        // B. coroutine yield - to Thread_B
+        // C. coroutine yield - to Thread_B
         CR_YIELD(Thread_B);
     }
 }
 
 void Thread_B(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -115,17 +116,18 @@ void Thread_B(void)
         printf("- Thread_B yielding to Thread_C\n");
         assert(Thread_C && "Thread_B: Thread_C pointer is invalid!");
 
-        // B. explicitly yield - to Thread_C
+        // C. explicitly yield - to Thread_C
         CR_YIELD(Thread_C);
     }
 }
 
 void Thread_C(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -138,17 +140,18 @@ void Thread_C(void)
         printf("- Thread_C yielding to Thread_D\n");
         assert(Thread_D && "Thread_C: Thread_D pointer is invalid!");
 
-        // B. explicitly yield - to Thread_D
+        // C. explicitly yield - to Thread_D
         CR_YIELD(Thread_D);
     }
 }
 
 void Thread_D(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -161,7 +164,7 @@ void Thread_D(void)
         printf("- Thread_D yielding to Thread_A\n");
         assert(cr_idle && "Thread_D: cr_idle pointer is invalid!");
 
-        // B. explicitly yield - to cr_idle
+        // C. explicitly yield - to cr_idle
         CR_YIELD(cr_idle);
     }
 }

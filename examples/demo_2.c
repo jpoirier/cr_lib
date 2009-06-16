@@ -29,10 +29,11 @@ static void signal_handler(int signal);
 
 void Thread_A(void)
 {
-    int32_t     i;
-    int32_t     cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    int32_t volatile    cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -48,26 +49,28 @@ void Thread_A(void)
 
         assert(Thread_B && "Thread_A: Thread_B pointer is invalid!");
 
-        // we're yielding to the idle thread but we don't want it - the idle thread -
-        // to spin forever so we simulate an ISR setting the activate thread
-        // variable which causes the idle thread to yield to the thread that was
-        // set via cr_g_activate_id
-        // fetch the thread's id and set the flag
+        // we're yielding to the idle thread but we don't want it [idle thread]
+        // to spin forever, so we simulate an ISR by setting the cr_g_activate_id
+        // variable to activate a thread. When we yield to the idle thread it'll
+        // activate the thread that was set via in cr_g_activate_id.
+
+        // No simulate an ISR, fetch the ID of the thread we want to activate
         cr_g_activate_id = cr_get_id(Thread_B);
 
         assert((cr_g_activate_id != CR_INVALID_ID) && "Thread_A: cr_get_id returned CR_INVALID_ID!");
 
-        // B. explicitly yield - to the idle coroutine in this case
+        // C. explicitly yield - to the idle coroutine in this case
         CR_YIELD(cr_idle);
     }
 }
 
 void Thread_B(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -87,17 +90,18 @@ void Thread_B(void)
 
         assert((cr_g_activate_id != CR_INVALID_ID) && "Thread_B: cr_get_id returned CR_INVALID_ID!");
 
-        // B. explicitly yield - to the idle coroutine in this case
+        // C. explicitly yield - to the idle coroutine in this case
         CR_YIELD(cr_idle);
     }
 }
 
 void Thread_C(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -117,17 +121,18 @@ void Thread_C(void)
 
         assert((cr_g_activate_id != CR_INVALID_ID) && "Thread_C: cr_get_id returned CR_INVALID_ID!");
 
-        // B. explicitly yield - to the idle coroutine in this case
+        // C. explicitly yield - to the idle coroutine in this case
         CR_YIELD(cr_idle);
     }
 }
 
 void Thread_D(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -147,7 +152,7 @@ void Thread_D(void)
 
         assert((cr_g_activate_id != CR_INVALID_ID) && "Thread_D: cr_get_id returned CR_INVALID_ID!");
 
-        // B. explicitly yield - to the idle coroutine in this case
+        // C. explicitly yield - to the idle coroutine in this case
         CR_YIELD(cr_idle);
     }
 }

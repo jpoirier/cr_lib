@@ -38,10 +38,11 @@ static void signal_handler(int signal);
 
 void Thread_A(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -55,17 +56,18 @@ void Thread_A(void)
 
         assert(Thread_B && "Thread_A: Thread_B pointer is invalid!");
 
-        // B. explicitly yield - to Thread_B
+        // C. explicitly yield - to Thread_B
         CR_YIELD(Thread_B);
     }
 }
 
 void Thread_B(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -79,17 +81,18 @@ void Thread_B(void)
 
         assert(Thread_C && "Thread_B: Thread_C pointer is invalid!");
 
-        // B. explicitly yield - to Thread_C
+        // C. explicitly yield - to Thread_C
         CR_YIELD(Thread_C);
     }
 }
 
 void Thread_C(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -103,17 +106,18 @@ void Thread_C(void)
 
         assert(Thread_D && "Thread_C: Thread_D pointer is invalid!");
 
-        // B. explicitly yield - to Thread_D
+        // C. explicitly yield - to Thread_D
         CR_YIELD(Thread_D);
     }
 }
 
 void Thread_D(void)
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    // A. locals use the 'volatile' qualifier
+    int32_t volatile    i;
+    uint32_t volatile   cnt = 0;
 
-    // A. the required init call
+    // B. the required init call
     CR_THREAD_INIT();
 
     for(;;)
@@ -127,7 +131,7 @@ void Thread_D(void)
 
         assert(Thread_A && "Thread_D: Thread_A pointer is invalid!");
 
-        // B. explicitly yield - to Thread_A
+        // C. explicitly yield - to Thread_A
         CR_YIELD(Thread_A);
     }
 }
@@ -165,7 +169,7 @@ void cleanup(void)
 }
 
 // 4 threads plus 1 element for the idle thread
-#define CONTEXT_ARRAY_CNT (4 + 2)
+#define CONTEXT_ARRAY_CNT (4 + 1)
 
 int main(int argc, char* argv[])
 {

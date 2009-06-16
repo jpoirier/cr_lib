@@ -86,6 +86,29 @@
         }                                               }
     }                                               }
 
+    *Note: locals within a corouitne thread should use the 'volatile' qualifier
+
+    E.g.:
+         coroutine 1
+         -----------
+    void Thread_A(void)
+    {
+        // locals use the 'volatile' qualifier
+        int32_t volatile count = 0;
+
+        CR_THREAD_INIT();
+
+        for(;;)
+        {
+            count += 1;
+
+            // main body of code
+            CR_YIELD(Thread_B);
+
+            // user code
+        }
+    }
+
  *  \endcode
  *
  *  <b> Misc. Notes </b>
