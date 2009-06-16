@@ -3,23 +3,31 @@
 # To compile without debugging enabled add the following to the command line:  debug=false 
 # To compile without optimizations enabled add the following to the command line:  noopt=true 
 
-Platform = Win32
-EXE_EXT = .exe
+# Set OSTYPE to:
+# 	win | lin | bsd | dar
 
-ifeq ($(OSTYPE),linux)
+OSTYPE = dar
+
+ifeq "$(OSTYPE)" "win"
+    Platform = MSW
+    EXE_EXT =
+endif
+
+ifeq "$(OSTYPE)" "lin"
     Platform = LINUX
     EXE_EXT =
 endif
 
-ifeq ($(OSTYPE),bsd)
+ifeq "$(OSTYPE)" "bsd"
     Platform = BSD
     EXE_EXT =
 endif
 
-ifeq ($(OSTYPE),darwin*)
+ifeq "$(OSTYPE)" "dar"
     Platform = OSX
     EXE_EXT =
 endif
+
 
 
 CC = gcc
@@ -54,6 +62,7 @@ endif
 
 
 all:
+	@echo Platform: $(Platform)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_1.c -o demo_1$(EXE_EXT)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_2.c -o demo_2$(EXE_EXT)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_3.c -o demo_3$(EXE_EXT)
