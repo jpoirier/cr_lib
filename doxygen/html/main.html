@@ -64,6 +64,29 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
             <span class="comment">// user code                                     // user code</span>
         }                                               }
     }                                               }
+
+    *Note: locals within a corouitne thread should use the <span class="stringliteral">'volatile'</span> qualifier
+
+    E.g.:
+         coroutine 1
+         -----------
+    <span class="keywordtype">void</span> Thread_A(<span class="keywordtype">void</span>)
+    {
+        <span class="comment">// locals use the 'volatile' qualifier</span>
+        int32_t <span class="keyword">volatile</span> count = 0;
+
+        <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+
+        <span class="keywordflow">for</span>(;;)
+        {
+            count += 1;
+
+            <span class="comment">// main body of code</span>
+            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_B);
+
+            <span class="comment">// user code</span>
+        }
+    }
 </pre></div><p>
 <b> Misc. Notes </b><p>
 <ul>
@@ -93,7 +116,7 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 <ul>
 <li>The global variable "cr_g_activate_id" can be used to activate a coroutine by setting it to a coroutine's ID. For it to work the idle coroutine (cr_idle) must be yielded to explicitly at some point. Have a look at the demo_2 and demo_4 files. Each simulates an ISR type of external event. Be careful when scheduling events using "cr_g_activate_id"; there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine the ID of a coroutine. </li></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 13:16:00 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 16:01:13 2009 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

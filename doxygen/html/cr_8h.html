@@ -276,7 +276,7 @@ Returns the ID of a registered coroutine.<p>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00174">174</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00197">197</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -302,7 +302,7 @@ A system coroutine thread.
 This coroutine thread is used in conjunction with the cr_g_activate_id variable. cr_g_activate_id can be set to a coroutine's ID, e.g. in an ISR handler, and this function will activate the coroutine. This will work only if this function is explicitly called via CR_YIELD.<p>
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>This coroutine thread must be explicitly called for it to run. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00241">241</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00264">264</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -343,7 +343,7 @@ This function sets a global pointer to the array holding all of the registered c
 </dl>
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>This initialization function must be the first function called in the library. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00219">219</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00242">242</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -375,7 +375,7 @@ This function creates an ID for the new coroutine thread and associates the ID w
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>The ID of the registered coroutine. </dd></dl>
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>All coroutine thread registration must be completed before calling CR_START. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00289">289</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00312">312</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -399,7 +399,7 @@ This function creates an ID for the new coroutine thread and associates the ID w
 Resets the system to its initial state. 
 <p>
 This function sets all the system's global variables to their original state. 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00199">199</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00222">222</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -420,7 +420,7 @@ Pointer to the user defined array of coroutine contexts.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00135">135</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00158">158</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -440,7 +440,7 @@ The number of elements in the coroutine context array.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00140">140</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00163">163</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -460,7 +460,7 @@ The ID of the coroutine that's active.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00154">154</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00177">177</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -480,7 +480,7 @@ The ID of the previously active coroutine.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00159">159</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00182">182</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -500,12 +500,12 @@ Flag that's set when CR_START is called.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00149">149</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00172">172</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 13:16:00 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 16:01:13 2009 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
