@@ -1,0 +1,54 @@
+# Assumes the DMC compiler is set in you environment, but if not set CC to the absolute 
+# path of the compiler, e.g. CC = c:/dmc/bin/dmc
+#
+# To compile: gmake -f makedmc
+# To compile without debugging enabled add the following to the command line:  debug=false 
+# To compile without optimizations enabled add the following to the command line:  noopt=true 
+
+CC = dmc
+INCLUDE = -I../ -I.
+OPTIONS = 
+
+
+################################################################################
+# Set the debug mode
+#
+
+ifeq "$(debug)" "false"
+    OPTIONS += -DNDEBUG
+else
+    OPTIONS += -g -DDEBUG
+endif
+
+################################################################################
+# Build status with the following compilers:
+# 	Breaks (all the demos)	: i686-apple-darwin9-gcc-4.2.1 with -O3/-O2  
+# 	Breaks (demo1 and demo2): i686-apple-darwin9-gcc-4.2.1 with -O1
+# 	Works (all)		: i686-apple-darwin9-gcc-4.0.1 with/without -O3/2/1 
+# 	Works (all)		: Mingw gcc v3.4.5 with/without -O3/2/1 
+# 	Works (all)		: Intel compiler v11.0 with/without -O3/2/1
+# 	Works (all)		: Digital Mars Compiler v8.50 with/without -o
+# 	Works (all)		: tcc compiler v0.9.24
+#
+
+ifeq "$(noopt)" "true"
+    OPT = -o -Wuninitialized 
+else
+    OPT = -o  
+endif
+
+
+all:
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_1.c $(OPT) demo_1.exe
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_2.c $(OPT) demo_2.exe
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_3.c $(OPT) demo_3.exe
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_4.c -lpthread -o demo_4.exe
+
+clean:
+	$(RM) *.o *.obj *.map test1.exe demo_*.exe
+
+
+
+	
+
+

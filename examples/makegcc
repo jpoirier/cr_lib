@@ -1,0 +1,69 @@
+#
+# To compile: gmake -f makegcc
+# To compile without debugging enabled add the following to the command line:  debug=false 
+# To compile without optimizations enabled add the following to the command line:  noopt=true 
+
+Platform = Win32
+EXE_EXT = .exe
+
+ifeq ($(OSTYPE),linux)
+    Platform = LINUX
+    EXE_EXT =
+endif
+
+ifeq ($(OSTYPE),bsd)
+    Platform = BSD
+    EXE_EXT =
+endif
+
+ifeq ($(OSTYPE),darwin*)
+    Platform = OSX
+    EXE_EXT =
+endif
+
+
+CC = gcc
+INCLUDE = -I../ -I.
+OPTIONS = -std=c99 -Wpointer-arith -Wunused-function -Wmissing-declarations -Wmissing-prototypes
+
+################################################################################
+# Set the debug mode
+#
+ifeq "$(debug)" "false"
+    OPTIONS += -DNDEBUG
+else
+    OPTIONS += -g -DDEBUG
+endif
+
+################################################################################
+# Build status with the following compilers:
+# 	Breaks (all the demos)	: i686-apple-darwin9-gcc-4.2.1 with -O3/-O2  
+# 	Breaks (demo1 and demo2): i686-apple-darwin9-gcc-4.2.1 with -O1
+# 	Works (all)		: i686-apple-darwin9-gcc-4.0.1 with/without -O3/2/1 
+# 	Works (all)		: Mingw gcc v3.4.5 with/without -O3/2/1 
+# 	Works (all)		: Intel compiler v11.0 with/without -O3/2/1
+# 	Works (all)		: Digital Mars Compiler v8.50 with/without -o
+# 	Works (all)		: tcc compiler v0.9.24
+#
+
+ifeq "$(opt)" "true"
+    # nothing here
+else
+    OPTIONS += -O3 -Wuninitialized 
+endif
+
+
+all:
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_1.c -o demo_1$(EXE_EXT)
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_2.c -o demo_2$(EXE_EXT)
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_3.c -o demo_3$(EXE_EXT)
+	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_4.c -lpthread -o demo_4$(EXE_EXT)
+
+clean:
+	$(RM) *.o *.obj *.map demo_*$(EXE_EXT)
+
+
+
+	
+
+
