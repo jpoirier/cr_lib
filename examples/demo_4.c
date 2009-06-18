@@ -214,7 +214,7 @@ void cleanup(void)
     printf("    Exiting...\n" );
 }
 
-// 4 threads plus 1 element for the idle thread
+// 4 user threads plus 1 the system's idle thread
 #define CONTEXT_ARRAY_CNT (4 + 1)
 
 int main(int argc, char* argv[])
@@ -242,6 +242,9 @@ int main(int argc, char* argv[])
         perror("An error occured while setting the SIGSEGV signal handler.\n");
 
     // 1. init the cr library
+    assert(((sizeof(context_array) / sizeof(CR_CONTEXT)) == CONTEXT_ARRAY_CNT)
+                                        && "context_array size mismatch!\n");
+
     cr_init(context_array, CONTEXT_ARRAY_CNT);
 
     // 2. register the threads
