@@ -52,7 +52,7 @@
 <a name="l00199"></a>00199     int32_t i;
 <a name="l00200"></a>00200     <a class="code" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40" title="Coroutine ID typedef.">cr_id_t</a> <span class="keywordtype">id</span> = <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>;
 <a name="l00201"></a>00201 
-<a name="l00202"></a>00202     <span class="keywordflow">for</span>(i = 0;i &lt;= cr_g_thread_cnt; i++)
+<a name="l00202"></a>00202     <span class="keywordflow">for</span>(i = 0; i &lt;= (int32_t) cr_g_thread_cnt; i++)
 <a name="l00203"></a>00203     {
 <a name="l00204"></a>00204         <span class="keywordflow">if</span>(cr_g_context[i].pFunc == pFunc)
 <a name="l00205"></a>00205         {
@@ -89,7 +89,7 @@
 <a name="l00249"></a>00249     memset(cr_context, 0, cr_context_count * <span class="keyword">sizeof</span>(<a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>));
 <a name="l00250"></a>00250 
 <a name="l00251"></a>00251     cr_g_context        = cr_context;
-<a name="l00252"></a>00252     <a class="code" href="cr_8c.html#8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>    = cr_context_count;
+<a name="l00252"></a>00252     <a class="code" href="cr_8c.html#8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>    = (uint32_t) cr_context_count;
 <a name="l00253"></a>00253 }
 <a name="l00254"></a>00254 
 <a name="l00264"></a><a class="code" href="cr_8h.html#ccd73b48023970380bfdecb56483976c">00264</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>(<span class="keywordtype">void</span>)
@@ -115,7 +115,7 @@
 <a name="l00284"></a>00284         <span class="keywordflow">if</span>(<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> == <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b760cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a>)
 <a name="l00285"></a>00285             <span class="keywordflow">continue</span>;
 <a name="l00286"></a>00286 
-<a name="l00287"></a>00287         assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> &lt;= <a class="code" href="cr_8c.html#8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp; <span class="stringliteral">"cr_idle: cr_g_activate_id out of bounds!\n"</span>);
+<a name="l00287"></a>00287         assert(((uint32_t) <a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> &lt;= <a class="code" href="cr_8c.html#8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp; <span class="stringliteral">"cr_idle: cr_g_activate_id out of bounds!\n"</span>);
 <a name="l00288"></a>00288 
 <a name="l00289"></a>00289         <span class="comment">// Save the activated coroutine ID and reset the global variable.</span>
 <a name="l00290"></a>00290         temp_id             = <a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>;
@@ -188,7 +188,7 @@
 <a name="l00371"></a>00371 
 <a name="l00372"></a>00372 <span class="comment">// end of file</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 16:01:13 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

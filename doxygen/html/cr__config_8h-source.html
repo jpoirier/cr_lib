@@ -91,7 +91,7 @@
 <a name="l00114"></a>00114 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00115"></a>00115 <span class="preprocessor"></span>
 <a name="l00116"></a>00116 <span class="preprocessor">#ifndef __cplusplus</span>
-<a name="l00117"></a>00117 <span class="preprocessor"></span><span class="preprocessor">    #ifndef __DMC__</span>
+<a name="l00117"></a>00117 <span class="preprocessor"></span><span class="preprocessor">    #if !defined(__DMC__) &amp;&amp; !defined(_MSC_VER)</span>
 <a name="l00118"></a>00118 <span class="preprocessor"></span><span class="preprocessor">        #ifndef PREDEF_STANDARD_C_1999</span>
 <a name="l00119"></a>00119 <span class="preprocessor"></span><span class="preprocessor">            #error "ISO C99 compiler is required for this code to compile and work properly"</span>
 <a name="l00120"></a>00120 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
@@ -148,7 +148,7 @@
 <a name="l00171"></a>00171 <span class="preprocessor"></span>
 <a name="l00172"></a>00172 <span class="comment">// end of file</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 16:01:13 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

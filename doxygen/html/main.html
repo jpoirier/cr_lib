@@ -116,7 +116,7 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 <ul>
 <li>The global variable "cr_g_activate_id" can be used to activate a coroutine by setting it to a coroutine's ID. For it to work the idle coroutine (cr_idle) must be yielded to explicitly at some point. Have a look at the demo_2 and demo_4 files. Each simulates an ISR type of external event. Be careful when scheduling events using "cr_g_activate_id"; there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine the ID of a coroutine. </li></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Jun 16 16:01:13 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
