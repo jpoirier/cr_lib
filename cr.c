@@ -199,7 +199,7 @@ static uint32_t         cr_g_thread_cnt     = 0;
     int32_t i;
     cr_id_t id = CR_INVALID_ID;
 
-    for(i = 0;i <= cr_g_thread_cnt; i++)
+    for(i = 0; i <= (int32_t) cr_g_thread_cnt; i++)
     {
         if(cr_g_context[i].pFunc == pFunc)
         {
@@ -249,7 +249,7 @@ void cr_init(CR_CONTEXT*    cr_context,
     memset(cr_context, 0, cr_context_count * sizeof(CR_CONTEXT));
 
     cr_g_context        = cr_context;
-    cr_g_context_cnt    = cr_context_count;
+    cr_g_context_cnt    = (uint32_t) cr_context_count;
 }
 
 /** \brief A system coroutine thread.
@@ -284,7 +284,7 @@ void cr_idle(void)
         if(cr_g_activate_id == CR_IDLE_THREAD_ID)
             continue;
 
-        assert((cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n");
+        assert(((uint32_t) cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n");
 
         // Save the activated coroutine ID and reset the global variable.
         temp_id             = cr_g_activate_id;

@@ -91,7 +91,7 @@ typedef struct CR_CONTEXT {
             cr_g_previous_cr_id = CR_INVALID_ID;                                                    \
             cr_g_current_cr_id = cr_get_id(func_name);                                              \
             assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_START:  CR_INVALID_ID!\n");         \
-            assert((cr_g_current_cr_id <= cr_g_context_cnt) && "CR_START: ID out of bounds!\n");    \
+            assert(((uint32_t) cr_g_current_cr_id <= cr_g_context_cnt) && "CR_START: ID out of bounds!\n");    \
             cr_g_sys_started = CR_SYSTEM_STARTED;                                                   \
             longjmp(cr_g_context[cr_g_current_cr_id].env, 1)
 
@@ -106,7 +106,7 @@ typedef struct CR_CONTEXT {
 #define CR_YIELD(func_name)                                                                         \
             cr_g_current_cr_id = cr_get_id(func_name);                                              \
             assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_YIELD: CR_INVALID_ID!\n");          \
-            assert((cr_g_current_cr_id <= cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n");    \
+            assert(((uint32_t) cr_g_current_cr_id <= cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n");    \
             assert((cr_g_current_cr_id != this_id__) && "CR_YIELD: recursive coroutine call!\n");   \
             cr_g_previous_cr_id = this_id__;                                                        \
             if(!setjmp(cr_g_context[this_id__].env))                                                \

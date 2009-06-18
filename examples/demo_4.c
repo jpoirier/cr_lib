@@ -39,8 +39,12 @@ static void* isr_thread(void* args);
 struct sched_param          isr_thread_sched;
 pthread_attr_t              isr_thread_attr;
 int32_t                     isr_thread_run  = false;
-pthread_t                   isr_thread_id   = 0;
 
+#ifdef _MSC_VER
+pthread_t                   isr_thread_id   = {0, 0};
+#else
+    pthread_t                   isr_thread_id   = 0;
+#endif
 
 // Our simulated ISR thread
 void* isr_thread(void* args)
