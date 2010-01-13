@@ -8,6 +8,8 @@ Notes to me
 - TCC and DMC compiler links and information?
 - pthread required to build demo_4.c on Windows
 
+http://www.cs.utk.edu/~plank/plank/classes/cs360/360/notes/Setjmp/lecture.html
+
 
 ANSI C99 Standard text
 ----------------------
