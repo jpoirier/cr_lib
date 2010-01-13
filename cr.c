@@ -19,6 +19,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #include "cr_config.h"
 #include "cr.h"
@@ -52,35 +53,35 @@
     example of initialization, registration, and start of cr_lib
     ------------------------------------------------------------
 
-    #define CONTEXT_ARRAY_CNT   (2 + 1)
+    #define CONTEXT_ARRAY_CNT   ( 2 + 1 )
 
-    CR_CONTEXT context_array[CONTEXT_ARRAY_CNT];
+    CR_CONTEXT context_array[ CONTEXT_ARRAY_CNT ];
 
-    int main(int argc, char* argv[])
+    int main( int argc, char* argv[ ] )
     {
         // 1. initialize cr_lib
-        cr_init(context_array, CONTEXT_ARRAY_CNT);
+        cr_init( context_array, CONTEXT_ARRAY_CNT );
 
         // 2. register functions
-        cr_register_thread(Thread_A);
-        cr_register_thread(Thread_B);
+        cr_register_thread( Thread_A );
+        cr_register_thread( Thread_B );
 
         // 3. bootstrap system
-        CR_START(Thread_A);
+        CR_START( Thread_A );
 
         return 0;
     }
 
          coroutine 1                                     coroutine 2
          -----------                                     -----------
-    void Thread_A(void)                            void Thread_B(void)
+    void Thread_A( void )                           void Thread_B( void )
     {                                               {
-        CR_THREAD_INIT();                               CR_THREAD_INIT();
+        CR_THREAD_INIT( );                              CR_THREAD_INIT( );
 
-        for(;;)                                         while(1)
+        for ( ; ; )                                     while ( 1 )
         {                                               {
             // main body of code                             // main body of code
-            CR_YIELD(Thread_B);                              CR_YIELD(cr_idle);
+            CR_YIELD( Thread_B );                            CR_YIELD( cr_idle );
 
             // user code                                     // user code
         }                                               }
@@ -91,19 +92,19 @@
     E.g.:
          coroutine 1
          -----------
-    void Thread_A(void)
+    void Thread_A( void )
     {
         // locals use the 'volatile' qualifier
         int32_t volatile count = 0;
 
-        CR_THREAD_INIT();
+        CR_THREAD_INIT( );
 
-        for(;;)
+        for ( ;; )
         {
             count += 1;
 
             // main body of code
-            CR_YIELD(Thread_B);
+            CR_YIELD( Thread_B );
 
             // user code
         }
@@ -138,6 +139,10 @@
  *    there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine
  *    the ID of a coroutine.
  *
+ *  - The longjmp's second parameter could probably be used to identify the previously running coroutine and to set the 
+ *    cr_g_previous_cr_id variable once the jump is completed. To do so would require sanity checking that there aren't
+ *    more coroutines registered than the size of the longjmp's second parameter type, but it would really only save two or 
+ *    three lines of code in the macros.
  */
 
 /*! \example demo_1.c */
@@ -152,56 +157,58 @@ enum {
     CR_ERROR_CR_EXITING = 0 /*!< Used in asserts for clarity */
 };
 
+jmp_buf             cr_g_reg_func_env;
+
 /** \brief Pointer to the user defined array of coroutine contexts
  *  \note For internal use only.
  */
-CR_CONTEXT*             cr_g_context        = 0;
+CR_CONTEXT*         cr_g_context        = 0;
 
 /** \brief The number of elements in the coroutine context array
  *  \note For internal use only.
  */
-uint32_t                cr_g_context_cnt    = 0;
+uint32_t            cr_g_context_cnt    = 0;
 
 /** \brief Holds the ID of the coroutine to be activated - by cr_idle
  */
-cr_id_t volatile        cr_g_activate_id    = CR_IDLE_THREAD_ID;
+cr_id_t             cr_g_activate_id    = CR_IDLE_THREAD_ID;
 
 /** \brief Flag that's set when CR_START is called
  *  \note For internal use only.
  */
-int32_t                 cr_g_sys_started    = false;
+int32_t             cr_g_sys_started    = false;
 
 /** \brief The ID of the coroutine that's active
  *  \note For internal use only.
  */
-cr_id_t                 cr_g_current_cr_id  = CR_IDLE_THREAD_ID;
+cr_id_t             cr_g_current_cr_id  = CR_IDLE_THREAD_ID;
 
 /** \brief The ID of the previously active coroutine
  *  \note For internal use only.
  */
-cr_id_t                 cr_g_previous_cr_id  = CR_IDLE_THREAD_ID;
+cr_id_t             cr_g_previous_cr_id  = CR_IDLE_THREAD_ID;
 
 /** \brief The total number of registered coroutines
  *  \note For internal use only.
  */
-static uint32_t         cr_g_thread_cnt     = 0;
+static int32_t      cr_g_thread_cnt      = CR_THREAD_CNT_INIT;
 
-/** \brief Find a coroutine's ID.
+/** \brief Find the ID of a coroutine.
  *
  *  Returns the ID of a registered coroutine.
  *
- *  \param pFunc the coroutine to find the ID of
+ *  \param pFunc the registered coroutine whose ID is requested 
  *  \retval CR_INVALID_ID when no ID is found
- *  \retval ID the coroutine's ID
+ *  \retval id a valid coroutine's ID
  */
- cr_id_t cr_get_id(void (*pFunc)(void))
+cr_id_t cr_get_id( void ( *pFunc )( void ) )
 {
     int32_t i;
     cr_id_t id = CR_INVALID_ID;
 
-    for(i = 0; i <= (int32_t) cr_g_thread_cnt; i++)
+    for ( i = 0; i <= cr_g_thread_cnt; i++ )
     {
-        if(cr_g_context[i].pFunc == pFunc)
+        if ( cr_g_context[ i ].pFunc == pFunc )
         {
             id = i;
 
@@ -209,21 +216,21 @@ static uint32_t         cr_g_thread_cnt     = 0;
         }
     }
 
-//    printf("cr_get_id pFunc: 0x%X\n", pFunc);
-//    printf("cr_get_id id: %d\n", id);
+//    printf( "cr_get_id pFunc: 0x%X\n", pFunc );
+//    printf( "cr_get_id id: %d\n", id );
 
     return id;
 }
 
-/** \brief Resets the system to its initial state.
+/** \brief Resets the system to an initial state.
  *
  *  This function sets all the system's global variables to their original state.
  */
-void cr_reset(void)
+void cr_reset( void )
 {
     cr_g_context        = 0;
     cr_g_context_cnt    = 0;
-    cr_g_thread_cnt     = 0;
+    cr_g_thread_cnt     = CR_THREAD_CNT_INIT;
     cr_g_previous_cr_id = CR_INVALID_ID;
     cr_g_current_cr_id  = CR_INVALID_ID;
     cr_g_activate_id    = CR_IDLE_THREAD_ID;
@@ -239,20 +246,23 @@ void cr_reset(void)
  *  \param cr_context_count the element count of the array
  *  \attention This initialization function must be the first function called in the library.
  */
-void cr_init(CR_CONTEXT*    cr_context,
-             size_t         cr_context_count)
+void cr_init( CR_CONTEXT*    cr_context,
+              size_t         cr_context_count )
 {
     // Init the array of CR_CONTEXT structs as well as the globals.
-    assert(cr_context && "user param cr_context must be non-zero!\n");
-    assert((cr_context_count > 0) && "user param cr_context_count must be non-zero!\n");
+    assert( cr_context && "user param cr_context must be non-zero!\n" );
+    assert( ( cr_context_count > 0 ) && "user param cr_context_count must be non-zero!\n" );
 
-    memset(cr_context, 0, cr_context_count * sizeof(CR_CONTEXT));
+    memset( cr_context, 0, cr_context_count * sizeof( CR_CONTEXT ) );
 
     cr_g_context        = cr_context;
-    cr_g_context_cnt    = (uint32_t) cr_context_count;
+    cr_g_context_cnt    = ( uint32_t ) cr_context_count;
+    
+    // Register the idle thread, which should _always_ be the first coroutine registered.
+    cr_register_thread( cr_idle );
 }
 
-/** \brief A system coroutine thread.
+/** \brief The internal system's coroutine thread.
  *
  *  This coroutine thread is used in conjunction with the cr_g_activate_id variable.
  *  cr_g_activate_id can be set to a coroutine's ID, e.g. in an ISR handler, and
@@ -261,37 +271,41 @@ void cr_init(CR_CONTEXT*    cr_context,
  *
  *  \attention This coroutine thread must be explicitly called for it to run.
  */
-void cr_idle(void)
+void cr_idle( void )
 {
-    // This needs to be static because the function (initially) returns normally.
-    // It does work (on my system with my compiler) when it's not static but
-    // I'm not sure why, nevertheless, static is correct.
-    static cr_id_t volatile temp_id;
+    // This needs to be static because the function initially returns normally.
+    static cr_id_t temp_id;
 
-    // Set some of the idle thread's context information.
-    cr_g_context[CR_IDLE_THREAD_ID].pFunc = cr_idle;
-    cr_g_context[CR_IDLE_THREAD_ID].id    = CR_IDLE_THREAD_ID;
+    CR_THREAD_INIT( );
 
-    // Init the idle thread's context and return, this function is now a coroutine.
-    if(!setjmp(cr_g_context[CR_IDLE_THREAD_ID].env))
-        return;
+    assert( ( this_id__ == CR_IDLE_THREAD_ID ) && "cr_idle: this_id__ != CR_IDLE_THREAD_ID!\n" );
 
     // This will be the entry point when longjump is called with cr_idle's context.
     // No need to perform another setjmp from within the loop; not much happening.
-    for(;;)
+    for ( ; ; )
     {
         // Spin until a non-idle thread is activated.
-        if(cr_g_activate_id == CR_IDLE_THREAD_ID)
+        if ( cr_g_activate_id == CR_IDLE_THREAD_ID )
+        {
             continue;
+        }
 
-        assert(((uint32_t) cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n");
+        assert( ( cr_g_activate_id != CR_INVALID_ID ) && "cr_idle: cr_g_activate_id == CR_INVALID_ID!\n" );       
+        assert( ( ( uint32_t ) cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n" );
+        assert( ( cr_g_activate_id != this_id__ ) && "cr_idle: recursive coroutine call!\n" );   
 
-        // Save the activated coroutine ID and reset the global variable.
         temp_id             = cr_g_activate_id;
         cr_g_activate_id    = CR_IDLE_THREAD_ID;
-
-        // Goto the activated coroutine.
-        longjmp(cr_g_context[temp_id].env, 1);
+        cr_g_previous_cr_id = CR_IDLE_THREAD_ID; 
+                                           
+        if ( !setjmp( cr_g_context[ CR_IDLE_THREAD_ID ].env ) )
+        {                                           
+            longjmp( cr_g_context[ temp_id ].env, SETJMP_DFLT_RET_VAL );                 
+        } 
+        else 
+        {  
+            /* explicit block for the longjmp */ ; 
+        }
     }
 }
 
@@ -309,31 +323,41 @@ void cr_idle(void)
  *  \return The ID of the registered coroutine.
  *  \attention All coroutine thread registration must be completed before calling CR_START.
  */
-cr_id_t cr_register_thread(void (*pFunc)(void))
+cr_id_t cr_register_thread( void ( *pFunc )( void ) )
 {
-    assert(pFunc && "cr_register_thread: pFunc is invalid!\n");
-
     // Increase the coroutine count.
     cr_g_thread_cnt += 1;
+    
+    if ( cr_g_thread_cnt == CR_IDLE_THREAD_ID )
+    {
+        if ( pFunc != cr_idle )
+        {
+            perror( "cr_idle error: cr_g_thread_cnt !=  CR_IDLE_THREAD_ID. Note, coroutines shouldn't be registered prior to calling cr_init." );
+        }
+    }
+    
+    assert( pFunc && "cr_register_thread: pFunc is invalid!\n" );
 
-    // Include the cr_idle coroutine in the assert check.
-    assert(((cr_g_thread_cnt + 1) <= cr_g_context_cnt) && "cr_register_thread: [(cr_g_thread_cnt + 2) <= cr_g_context_cnt] failed\n");
+    // Account fot the cr_idle coroutine (one reserved index in the array) in the assert check.
+    assert( ( cr_g_thread_cnt < cr_g_context_cnt) && 
+                "cr_register_thread: [ cr_g_thread_cnt < cr_g_context_cnt ] failed\n" );
 
     // Assign the coroutine's ID and function pointer to its context structure
-    cr_g_context[cr_g_thread_cnt].id    = cr_g_thread_cnt;
-    cr_g_context[cr_g_thread_cnt].pFunc = pFunc;
+    cr_g_context[ cr_g_thread_cnt ].id    = cr_g_thread_cnt;
+    cr_g_context[ cr_g_thread_cnt ].pFunc = pFunc;
 
     // cr_g_current_cr_id is used by the CR_THREAD_INIT macro to identify
     // the coroutine.
     cr_g_current_cr_id = cr_g_thread_cnt;
 
-    // We temporarily use the idle thread's CR_CONTEXT structure element
-    // for the setjmp, the function being called uses the saved context in a
-    // longjmp call back here; we _don't_ want the registered function to return
-    // normally, otherwise any automatic variables that the user declared
-    // would be invalid.
-    if(!setjmp(cr_g_context[CR_REGISTER_THREAD_ID].env))
-        pFunc();
+    if ( !setjmp( cr_g_reg_func_env ) )
+    {
+        pFunc( ); // this function won't return normally
+    }
+    else
+    {
+        /* explicit block for the longjmp */ ;
+    }
 
     // The function is now a coroutine.
     // This is where we return from CR_THREAD_INIT via the longjump.
@@ -341,7 +365,7 @@ cr_id_t cr_register_thread(void (*pFunc)(void))
     // A sentinal. At init the coroutine returned via a longjump so the return
     // point saved in the function's prolog is valid and will return here
     // should the coroutine actually return normally via the epilog code.
-    if(cr_g_sys_started == CR_SYSTEM_STARTED)
+    if ( cr_g_sys_started == CR_SYSTEM_STARTED )
     {
         // What to do?
         // - nothing and return normally
@@ -359,11 +383,10 @@ cr_id_t cr_register_thread(void (*pFunc)(void))
 
         // Look at the cr_g_current_cr_id variable in a debugger to see the ID
         // of the exiting coroutine.
-        assert(CR_ERROR_CR_EXITING && "cr_register_thread: coruotine exiting!\n");
+        assert( CR_ERROR_CR_EXITING && "cr_register_thread: coruotine exiting!\n" );
 
-        // Pass EXIT_SUCCESS; we want any user registered clean-up
-        // function to be called.
-        exit(EXIT_SUCCESS);
+        // Pass EXIT_SUCCESS; we want any user registered clean-up functions to be called.
+        exit( EXIT_SUCCESS );
     }
 
     return cr_g_thread_cnt;

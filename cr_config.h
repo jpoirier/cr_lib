@@ -51,11 +51,11 @@
  *  \brief Standard printf macro with a variable number of arguments
  */
 #ifdef NPRINTF
-    #define PRINTF(fmt)
-    #define PRINTF_VA(fmt, ...)
+    #define PRINTF( fmt )
+    #define PRINTF_VA( fmt, ... )
 #else
-    #define PRINTF(fmt)                printf(fmt)
-    #define PRINTF_VA(fmt, ...)        printf(fmt, __VA_ARGS__)
+    #define PRINTF( fmt )                printf( fmt )
+    #define PRINTF_VA( fmt, ... )        printf( fmt, __VA_ARGS__ )
 #endif
 
 /** \def DPRINTF
@@ -65,11 +65,11 @@
  *  \brief Debug printf macro with a variable number of arguments
  */
 #ifdef NDPRINTF
-    #define DPRINTF(fmt)
-    #define DPRINTF_VA(fmt, ...)
+    #define DPRINTF( fmt )
+    #define DPRINTF_VA( fmt, ... )
 #else
-    #define DPRINTF(fmt)                printf("[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__)
-    #define DPRINTF_VA(fmt, ...)        printf("[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__, __VA_ARGS__)
+    #define DPRINTF( fmt )                printf( "[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__ )
+    #define DPRINTF_VA( fmt, ... )        printf( "[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )
 #endif
 
 /** \def EPRINTF
@@ -79,11 +79,11 @@
  *  \brief Error printf macros with a variable number of arguments
  */
 #ifdef NEPRINTF
-    #define EPRINTF(fmt)
-    #define EPRINTF_VA(fmt, ...)
+    #define EPRINTF( fmt )
+    #define EPRINTF_VA( fmt, ... )
 #else
-    #define EPRINTF(fmt)                printf("[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__)
-    #define EPRINTF_VA(fmt, ...)        printf("[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__, __VA_ARGS__)
+    #define EPRINTF( fmt )                printf( "[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__ )
+    #define EPRINTF_VA( fmt, ... )        printf( "[%s:%s:%d] " fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )
 #endif
 
 
@@ -103,18 +103,18 @@
     #ifdef __STDC_VERSION__
         #define PREDEF_STANDARD_C_1990
 
-        #if (__STDC_VERSION__ >= 199409L)
+        #if ( __STDC_VERSION__ >= 199409L )
             #define PREDEF_STANDARD_C_1994
         #endif
 
-        #if (__STDC_VERSION__ >= 199901L)
+        #if ( __STDC_VERSION__ >= 199901L )
             #define PREDEF_STANDARD_C_1999
         #endif
     #endif
 #endif
 
 #ifndef __cplusplus
-    #if !defined(__DMC__) && !defined(_MSC_VER)
+    #if !defined( __DMC__ ) && !defined( _MSC_VER )
         #ifndef PREDEF_STANDARD_C_1999
             #error "ISO C99 compiler is required for this code to compile and work properly"
         #endif
@@ -132,13 +132,13 @@
     #endif
 
     // GNUC on *nix
-    #if !defined(__APPLE__) && defined(__GNUC__)
+    #if !defined( __APPLE__ ) && defined( __GNUC__ )
         #define restrict    __restrict
         #define inline      __inline
     #endif
 
     // *MS VC++ with Intel compiler
-    #if defined(_MSC_VER) && !defined(__APPLE__) && !defined(__GNUC__)
+    #if defined( _MSC_VER ) && !defined( __APPLE__ ) && !defined( __GNUC__ )
         #define alloca  _alloca
 
         #ifndef __cplusplus
@@ -148,7 +148,7 @@
 #endif
 
 // *MS VC++ only
-#if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
+#if defined( _MSC_VER ) && !defined( __INTEL_COMPILER )
     #ifndef __cplusplus
         #define inline  __inline
     #endif

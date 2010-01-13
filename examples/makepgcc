@@ -1,10 +1,10 @@
 #
-# To compile: gmake -f makeicc
+# To compile: gmake -f makepgcc
 # To compile without debugging enabled add the following to the command line:  debug=false 
 # To compile without optimizations enabled add the following to the command line:  noopt=true 
 
-Platform = Win32
-EXE_EXT = .exe
+Platform = darwin  #Win32
+EXE_EXT = #.exe
 
 ifeq ($(OSTYPE),linux)
     Platform = LINUX
@@ -21,9 +21,9 @@ ifeq ($(OSTYPE),darwin*)
     EXE_EXT =
 endif
 
-CC = icc
+CC = pgcc
 INCLUDE = -I../ -I.
-OPTIONS = -std=c99 -Wpointer-arith -Wunused-function -Wmissing-declarations -Wmissing-prototypes
+OPTIONS = -c99 
 
 
 ################################################################################
@@ -49,7 +49,7 @@ endif
 ifeq "$(noopt)" "true"
     # nothing here
 else
-    OPTIONS += -O3 -Wuninitialized 
+    OPTIONS += -O3
 endif
 
 
