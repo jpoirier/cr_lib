@@ -212,8 +212,6 @@ void cleanup( void )
 {
     uint32_t volatile timing_barrier  = 0;
 
-    cr_reset( );
-
     // kindly kill our simulated ISR thread
     isr_thread_run = false;
 
@@ -224,6 +222,8 @@ void cleanup( void )
         while( timing_barrier-- )
             /* no code */ ;
     }
+    
+    cr_reset( );
 
 //    pthread_exit( 0 );
     printf( "    Exiting...\n"  );
