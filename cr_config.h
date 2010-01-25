@@ -11,7 +11,7 @@
  *
  *
  *  LICENSE:
- *          use either zlib_license.txt or lgpl_licesne.txt, your choice.
+ *          see the license.txt file
  *
  */
 #ifndef CR_CONFIG_H

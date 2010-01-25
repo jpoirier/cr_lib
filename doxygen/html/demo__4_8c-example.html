@@ -65,9 +65,9 @@ pthread_t                   isr_thread_id   = 0;
         <span class="comment">// the user, waiting for it to change from CR_IDLE_THREAD_ID.</span>
         <span class="comment">// The changed-value is the ID of the coroutine to be called.</span>
         assert(Thread_A &amp;&amp; <span class="stringliteral">"isr_thread: Thread_A pointer is invalid!"</span>);
-        <a name="a0"></a><a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a name="a1"></a><a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find a coroutine&amp;#39;s ID.">cr_get_id</a>(Thread_A);
+        <a name="a0"></a><a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a name="a1"></a><a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>(Thread_A);
 
-        assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a name="a2"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"isr_thread: cr_get_id returned CR_INVALID_ID!"</span>);
+        assert((<a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a name="a2"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"isr_thread: cr_get_id returned CR_INVALID_ID!"</span>);
     }
 
     printf(<span class="stringliteral">"isr_thread exiting...\n"</span> );
@@ -160,10 +160,10 @@ pthread_t                   isr_thread_id   = 0;
             cnt += 1;
 
         printf(<span class="stringliteral">"- Thread_D yielding to Thread_A\n"</span>);
-        assert(<a name="a5"></a><a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a> &amp;&amp; <span class="stringliteral">"Thread_D: cr_idle pointer is invalid!"</span>);
+        assert(<a name="a5"></a><a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> &amp;&amp; <span class="stringliteral">"Thread_D: cr_idle pointer is invalid!"</span>);
 
         <span class="comment">// B. explicitly yield - to cr_idle</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
     }
 }
 
@@ -196,7 +196,7 @@ pthread_t                   isr_thread_id   = 0;
 {
     uint32_t <span class="keyword">volatile</span> timing_barrier  = 0;
 
-    <a name="a6"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to its initial state.">cr_reset</a>();
+    <a name="a6"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>();
 
     <span class="comment">// kindly kill our simulated ISR thread</span>
     isr_thread_run = <span class="keyword">false</span>;
@@ -280,12 +280,12 @@ pthread_t                   isr_thread_id   = 0;
     <span class="comment">//--------------------------------------------------------------------------</span>
 
     <span class="comment">// 3. bootstrap the system</span>
-    <a name="a10"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+    <a name="a10"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
 
     <span class="keywordflow">return</span> EXIT_SUCCESS;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

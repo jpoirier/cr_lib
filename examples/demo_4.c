@@ -13,6 +13,9 @@
  * Copyright (c) 2006   Joseph D Poirier
  *
  *
+ *  LICENSE:
+ *          see the license.txt file
+ *
  *
  * @cmd<<%PRJ% %PFE%>>
  */
@@ -222,7 +225,7 @@ void cleanup( void )
         while( timing_barrier-- )
             /* no code */ ;
     }
-    
+
     cr_reset( );
 
 //    pthread_exit( 0 );

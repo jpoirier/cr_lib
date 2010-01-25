@@ -73,7 +73,7 @@
         printf(<span class="stringliteral">"- Thread_A resuming at      location E...\n"</span>);
 
         worker();
-        assert(Thread_B &amp;&amp; <span class="stringliteral">"Thread_A: Thread_B pointer is invalid!"</span>);
+        assert(Thread_B &amp;&amp; <span class="stringliteral">"Thread_A: Thread_B pointer is invalid!"</span>);          
 
         <span class="comment">// B. explicitly yield - to Thread_B</span>
         <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_B);
@@ -140,7 +140,7 @@
 
 <span class="keywordtype">void</span> cleanup(<span class="keywordtype">void</span>)
 {
-    <a name="a2"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to its initial state.">cr_reset</a>();
+    <a name="a2"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>();
 
     printf(<span class="stringliteral">"    Exiting...\n"</span> );
 }
@@ -181,7 +181,7 @@
     <span class="keywordflow">return</span> EXIT_SUCCESS;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

@@ -57,12 +57,12 @@
         <span class="comment">// variable which causes the idle thread to yield to the thread that was</span>
         <span class="comment">// set via cr_g_activate_id</span>
         <span class="comment">// fetch the thread's id and set the flag</span>
-        <a name="a1"></a><a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a name="a2"></a><a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find a coroutine&amp;#39;s ID.">cr_get_id</a>(Thread_B);
+        <a name="a1"></a><a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a name="a2"></a><a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>(Thread_B);
 
-        assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a name="a3"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_A: cr_get_id returned CR_INVALID_ID!"</span>);
+        assert((<a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a name="a3"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_A: cr_get_id returned CR_INVALID_ID!"</span>);
 
         <span class="comment">// B. explicitly yield - to the idle coroutine in this case</span>
-        <a name="a4"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a name="a5"></a><a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+        <a name="a4"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a name="a5"></a><a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
     }
 }
 
@@ -87,12 +87,12 @@
         assert(Thread_C &amp;&amp; <span class="stringliteral">"Thread_B: Thread_C pointer is invalid!"</span>);
 
         <span class="comment">// fetch the thread's id and set the flag</span>
-        <a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find a coroutine&amp;#39;s ID.">cr_get_id</a>(Thread_C);
+        <a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>(Thread_C);
 
-        assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_B: cr_get_id returned CR_INVALID_ID!"</span>);
+        assert((<a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_B: cr_get_id returned CR_INVALID_ID!"</span>);
 
         <span class="comment">// B. explicitly yield - to the idle coroutine in this case</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
     }
 }
 
@@ -117,12 +117,12 @@
         assert(Thread_D &amp;&amp; <span class="stringliteral">"Thread_C: Thread_D pointer is invalid!"</span>);
 
         <span class="comment">// fetch the thread's id and set the flag</span>
-        <a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find a coroutine&amp;#39;s ID.">cr_get_id</a>(Thread_D);
+        <a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>(Thread_D);
 
-        assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_C: cr_get_id returned CR_INVALID_ID!"</span>);
+        assert((<a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_C: cr_get_id returned CR_INVALID_ID!"</span>);
 
         <span class="comment">// B. explicitly yield - to the idle coroutine in this case</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
     }
 }
 
@@ -147,12 +147,12 @@
         assert(Thread_A &amp;&amp; <span class="stringliteral">"Thread_D: Thread_A pointer is invalid!"</span>);
 
         <span class="comment">// fetch the thread's id and set the flag</span>
-        <a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find a coroutine&amp;#39;s ID.">cr_get_id</a>(Thread_A);
+        <a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> = <a class="code" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>(Thread_A);
 
-        assert((<a class="code" href="cr_8c.html#f8de5e163b22489335db1b450f91f760" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_D: cr_get_id returned CR_INVALID_ID!"</span>);
+        assert((<a class="code" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>) &amp;&amp; <span class="stringliteral">"Thread_D: cr_get_id returned CR_INVALID_ID!"</span>);
 
         <span class="comment">// B. explicitly yield - to the idle coroutine in this case</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>);
     }
 }
 
@@ -183,7 +183,7 @@
 
 <span class="keywordtype">void</span> cleanup(<span class="keywordtype">void</span>)
 {
-    <a name="a6"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to its initial state.">cr_reset</a>();
+    <a name="a6"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>();
 
     printf(<span class="stringliteral">"    Exiting...\n"</span> );
 }
@@ -226,7 +226,7 @@
     <span class="keywordflow">return</span> EXIT_SUCCESS;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

@@ -11,7 +11,7 @@
  *
  *
  *  LICENSE:
- *          use either zlib_license.txt or lgpl_licesne.txt, your choice.
+ *          see the license.txt file
  *
  * @cmd<<%PRJ% %PFE%>>
  */
@@ -139,9 +139,9 @@
  *    there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine
  *    the ID of a coroutine.
  *
- *  - The longjmp's second parameter could probably be used to identify the previously running coroutine and to set the 
+ *  - The longjmp's second parameter could probably be used to identify the previously running coroutine and to set the
  *    cr_g_previous_cr_id variable once the jump is completed. To do so would require sanity checking that there aren't
- *    more coroutines registered than the size of the longjmp's second parameter type, but it would really only save two or 
+ *    more coroutines registered than the size of the longjmp's second parameter type, but it would really only save two or
  *    three lines of code in the macros.
  */
 
@@ -197,7 +197,7 @@ static int32_t      cr_g_thread_cnt      = CR_THREAD_CNT_INIT;
  *
  *  Returns the ID of a registered coroutine.
  *
- *  \param pFunc the registered coroutine whose ID is requested 
+ *  \param pFunc the registered coroutine whose ID is requested
  *  \retval CR_INVALID_ID when no ID is found
  *  \retval id a valid coroutine's ID
  */
@@ -257,7 +257,7 @@ void cr_init( CR_CONTEXT*    cr_context,
 
     cr_g_context        = cr_context;
     cr_g_context_cnt    = ( uint32_t ) cr_context_count;
-    
+
     // Register the idle thread, which should _always_ be the first coroutine registered.
     cr_register_thread( cr_idle );
 }
@@ -290,21 +290,21 @@ void cr_idle( void )
             continue;
         }
 
-        assert( ( cr_g_activate_id != CR_INVALID_ID ) && "cr_idle: cr_g_activate_id == CR_INVALID_ID!\n" );       
+        assert( ( cr_g_activate_id != CR_INVALID_ID ) && "cr_idle: cr_g_activate_id == CR_INVALID_ID!\n" );
         assert( ( ( uint32_t ) cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n" );
-        assert( ( cr_g_activate_id != this_id__ ) && "cr_idle: recursive coroutine call!\n" );   
+        assert( ( cr_g_activate_id != this_id__ ) && "cr_idle: recursive coroutine call!\n" );
 
         temp_id             = cr_g_activate_id;
         cr_g_activate_id    = CR_IDLE_THREAD_ID;
-        cr_g_previous_cr_id = CR_IDLE_THREAD_ID; 
-                                           
+        cr_g_previous_cr_id = CR_IDLE_THREAD_ID;
+
         if ( !setjmp( cr_g_context[ CR_IDLE_THREAD_ID ].env ) )
-        {                                           
-            longjmp( cr_g_context[ temp_id ].env, SETJMP_DFLT_RET_VAL );                 
-        } 
-        else 
-        {  
-            /* explicit block for the longjmp */ ; 
+        {
+            longjmp( cr_g_context[ temp_id ].env, SETJMP_DFLT_RET_VAL );
+        }
+        else
+        {
+            /* explicit block for the longjmp */ ;
         }
     }
 }
@@ -327,7 +327,7 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) )
 {
     // Increase the coroutine count.
     cr_g_thread_cnt += 1;
-    
+
     if ( cr_g_thread_cnt == CR_IDLE_THREAD_ID )
     {
         if ( pFunc != cr_idle )
@@ -335,11 +335,11 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) )
             perror( "cr_idle error: cr_g_thread_cnt !=  CR_IDLE_THREAD_ID. Note, coroutines shouldn't be registered prior to calling cr_init." );
         }
     }
-    
+
     assert( pFunc && "cr_register_thread: pFunc is invalid!\n" );
 
     // Account fot the cr_idle coroutine (one reserved index in the array) in the assert check.
-    assert( ( cr_g_thread_cnt < cr_g_context_cnt) && 
+    assert( ( cr_g_thread_cnt < cr_g_context_cnt) &&
                 "cr_register_thread: [ cr_g_thread_cnt < cr_g_context_cnt ] failed\n" );
 
     // Assign the coroutine's ID and function pointer to its context structure

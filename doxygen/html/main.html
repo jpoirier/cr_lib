@@ -31,35 +31,35 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 <div class="fragment"><pre class="fragment">    example of initialization, registration, and start of cr_lib
     ------------------------------------------------------------
 
-<span class="preprocessor">    #define CONTEXT_ARRAY_CNT   (2 + 1)</span>
+<span class="preprocessor">    #define CONTEXT_ARRAY_CNT   ( 2 + 1 )</span>
 <span class="preprocessor"></span>
-    <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> context_array[CONTEXT_ARRAY_CNT];
+    <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> context_array[ CONTEXT_ARRAY_CNT ];
 
-    <span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])
+    <span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[ ] )
     {
         <span class="comment">// 1. initialize cr_lib</span>
-        <a class="code" href="cr_8c.html#ca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>(context_array, CONTEXT_ARRAY_CNT);
+        <a class="code" href="cr_8c.html#ca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>( context_array, CONTEXT_ARRAY_CNT );
 
         <span class="comment">// 2. register functions</span>
-        <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_A);
-        <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_B);
+        <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_A );
+        <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_B );
 
         <span class="comment">// 3. bootstrap system</span>
-        <a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>(Thread_A);
+        <a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>( Thread_A );
 
         <span class="keywordflow">return</span> 0;
     }
 
          coroutine 1                                     coroutine 2
          -----------                                     -----------
-    <span class="keywordtype">void</span> Thread_A(<span class="keywordtype">void</span>)                            void Thread_B(<span class="keywordtype">void</span>)
+    <span class="keywordtype">void</span> Thread_A( <span class="keywordtype">void</span> )                           void Thread_B( <span class="keywordtype">void</span> )
     {                                               {
-        <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();                               <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+        <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );                              <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-        <span class="keywordflow">for</span>(;;)                                         <span class="keywordflow">while</span>(1)
+        <span class="keywordflow">for</span> ( ; ; )                                     <span class="keywordflow">while</span> ( 1 )
         {                                               {
             <span class="comment">// main body of code                             // main body of code</span>
-            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_B);                              <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(<a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="A system coroutine thread.">cr_idle</a>);
+            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_B );                            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( <a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> );
 
             <span class="comment">// user code                                     // user code</span>
         }                                               }
@@ -70,19 +70,19 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
     E.g.:
          coroutine 1
          -----------
-    <span class="keywordtype">void</span> Thread_A(<span class="keywordtype">void</span>)
+    <span class="keywordtype">void</span> Thread_A( <span class="keywordtype">void</span> )
     {
         <span class="comment">// locals use the 'volatile' qualifier</span>
         int32_t <span class="keyword">volatile</span> count = 0;
 
-        <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+        <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-        <span class="keywordflow">for</span>(;;)
+        <span class="keywordflow">for</span> ( ;; )
         {
             count += 1;
 
             <span class="comment">// main body of code</span>
-            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_B);
+            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_B );
 
             <span class="comment">// user code</span>
         }
@@ -114,9 +114,12 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 <li>Functions registered as coroutine threads should not return. I.e. the body of the main part of the code should be wrapped in an endless "for" or "while" loop.</li></ul>
 <p>
 <ul>
-<li>The global variable "cr_g_activate_id" can be used to activate a coroutine by setting it to a coroutine's ID. For it to work the idle coroutine (cr_idle) must be yielded to explicitly at some point. Have a look at the demo_2 and demo_4 files. Each simulates an ISR type of external event. Be careful when scheduling events using "cr_g_activate_id"; there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine the ID of a coroutine. </li></ul>
+<li>The global variable "cr_g_activate_id" can be used to activate a coroutine by setting it to a coroutine's ID. For it to work the idle coroutine (cr_idle) must be yielded to explicitly at some point. Have a look at the demo_2 and demo_4 files. Each simulates an ISR type of external event. Be careful when scheduling events using "cr_g_activate_id"; there's no buffering of the coroutine ID's being assigned. Use "cr_get_id()" - passing a coroutine function name - to determine the ID of a coroutine.</li></ul>
+<p>
+<ul>
+<li>The longjmp's second parameter could probably be used to identify the previously running coroutine and to set the cr_g_previous_cr_id variable once the jump is completed. To do so would require sanity checking that there aren't more coroutines registered than the size of the longjmp's second parameter type, but it would really only save two or three lines of code in the macros. </li></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

@@ -11,7 +11,7 @@
  *
  *
  *  LICENSE:
- *          use either zlib_license.txt or lgpl_licesne.txt, your choice.
+ *          see the license.txt file
  *
  */
 #ifndef CR_H
@@ -76,8 +76,8 @@ typedef struct CR_CONTEXT {
 /** \brief Initializes a function as a coroutine
  *
  *  This macro creates the static variable this_id__ which holds the ID of
- *  the newly created coroutine. cr_g_current_cr_id is used by cr_register_thread 
- *  to pass the newly assigned coroutine ID to the function being registered. The  
+ *  the newly created coroutine. cr_g_current_cr_id is used by cr_register_thread
+ *  to pass the newly assigned coroutine ID to the function being registered. The
  *  ID is then used to save the new coroutine's context, which serves as the initial
  *  entry point in to the coroutine. Rather than returning normally, a longjmp
  *  is performed to get back to the cr_register_thread function.
@@ -91,7 +91,7 @@ typedef struct CR_CONTEXT {
             this_id__ = cr_g_current_cr_id;                             \
             if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {           \
                 longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL );      \
-            } else { /* explicit block for the longjmp */ ; } 
+            } else { /* explicit block for the longjmp */ ; }
 
 /** \brief Starts the cr_lib system
  *

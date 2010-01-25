@@ -9,7 +9,8 @@
  * VERSION    DATE/AUTHOR              COMMENT
  *
  *
- *
+ *  LICENSE:
+ *          see the license.txt file
  *
  *
  * start ------

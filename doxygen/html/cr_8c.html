@@ -26,6 +26,7 @@
 <code>#include &lt;string.h&gt;</code><br>
 <code>#include &lt;stdio.h&gt;</code><br>
 <code>#include &lt;stdbool.h&gt;</code><br>
+<code>#include &lt;signal.h&gt;</code><br>
 <code>#include &quot;<a class="el" href="cr__config_8h-source.html">cr_config.h</a>&quot;</code><br>
 <code>#include &quot;<a class="el" href="cr_8h-source.html">cr.h</a>&quot;</code><br>
 
@@ -38,39 +39,42 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Internally used annonymous enumerations that define various states and settings.  <a href="cr_8c.html#06fc87d81c62e9abb8790b6e5713c55b">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90">cr_get_id</a> (void(*pFunc)(void))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#3e7a31163658d81c9473e5b637d9eb90">cr_get_id</a> (void(*pFunc)(void))</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find a coroutine's ID.  <a href="#3e7a31163658d81c9473e5b637d9eb90"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find the ID of a coroutine.  <a href="#3e7a31163658d81c9473e5b637d9eb90"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879">cr_reset</a> (void)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resets the system to its initial state.  <a href="#3e8d6963f6ee2cc49502186eca21d879"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resets the system to an initial state.  <a href="#3e8d6963f6ee2cc49502186eca21d879"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#ca6b87323f9ce0bf21b3f06209a97989">cr_init</a> (<a class="el" href="struct_c_r___c_o_n_t_e_x_t.html">CR_CONTEXT</a> *cr_context, size_t cr_context_count)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">cr_lib's initialization function.  <a href="#ca6b87323f9ce0bf21b3f06209a97989"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#ccd73b48023970380bfdecb56483976c">cr_idle</a> (void)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A system coroutine thread.  <a href="#ccd73b48023970380bfdecb56483976c"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb">cr_register_thread</a> (void(*pFunc)(void))</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The internal system's coroutine thread.  <a href="#ccd73b48023970380bfdecb56483976c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb">cr_register_thread</a> (void(*pFunc)(void))</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Register a function as a coroutine thread.  <a href="#e30bdb4ef569c0678e4cb49829f11bbb"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Variables</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1374fdc17d74ee4b6e94c63251886ea3"></a><!-- doxytag: member="cr.c::cr_g_reg_func_env" ref="1374fdc17d74ee4b6e94c63251886ea3" args="" -->
+jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env</b></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_c_r___c_o_n_t_e_x_t.html">CR_CONTEXT</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#22841ff791649abd0bcb62392ebb9778">cr_g_context</a> = 0</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pointer to the user defined array of coroutine contexts.  <a href="#22841ff791649abd0bcb62392ebb9778"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#8238e77b653b2cc4905373b805fc3567">cr_g_context_cnt</a> = 0</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The number of elements in the coroutine context array.  <a href="#8238e77b653b2cc4905373b805fc3567"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="f8de5e163b22489335db1b450f91f760"></a><!-- doxytag: member="cr.c::cr_g_activate_id" ref="f8de5e163b22489335db1b450f91f760" args="" -->
-<a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a> volatile&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#f8de5e163b22489335db1b450f91f760">cr_g_activate_id</a> = CR_IDLE_THREAD_ID</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1345c6db4d2d1d939e7841da46704d8e"></a><!-- doxytag: member="cr.c::cr_g_activate_id" ref="1345c6db4d2d1d939e7841da46704d8e" args="" -->
+<a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#1345c6db4d2d1d939e7841da46704d8e">cr_g_activate_id</a> = CR_IDLE_THREAD_ID</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Holds the ID of the coroutine to be activated - by cr_idle. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#00999e3368c59592db0c069abf1f1296">cr_g_sys_started</a> = 0</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag that's set when CR_START is called.  <a href="#00999e3368c59592db0c069abf1f1296"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#cf4ab64c8de56045d84e53b65dba7eb8">cr_g_current_cr_id</a> = CR_IDLE_THREAD_ID</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#cf4ab64c8de56045d84e53b65dba7eb8">cr_g_current_cr_id</a> = CR_IDLE_THREAD_ID</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The ID of the coroutine that's active.  <a href="#cf4ab64c8de56045d84e53b65dba7eb8"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#e7e93574baec3ae2b083c7f36916fbbd">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cr_8c.html#e7e93574baec3ae2b083c7f36916fbbd">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The ID of the previously active coroutine.  <a href="#e7e93574baec3ae2b083c7f36916fbbd"></a><br></td></tr>
 </table>
@@ -79,7 +83,7 @@
 <dl class="date" compact><dt><b>Date:</b></dt><dd>Creation date : February 2006</dd></dl>
 <dl class="version" compact><dt><b>Version:</b></dt><dd>X.X.X</dd></dl>
 VERSION DATE/AUTHOR COMMENT<p>
-LICENSE: use either zlib_license.txt or lgpl_licesne.txt, your choice.<p>
+LICENSE: see the license.txt file<p>
 &lt;&lt;PRJ% PFE%&gt;&gt; 
 <p>Definition in file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 <hr><h2>Enumeration Type Documentation</h2>
@@ -105,7 +109,7 @@ Used in asserts for clarity </td></tr>
 </table>
 </dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00151">151</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00156">156</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -115,7 +119,7 @@ Used in asserts for clarity </td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a> cr_get_id           </td>
+          <td class="memname"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a> cr_get_id           </td>
           <td>(</td>
           <td class="paramtype">void(*)(void)&nbsp;</td>
           <td class="paramname"> <em>pFunc</em>          </td>
@@ -127,23 +131,23 @@ Used in asserts for clarity </td></tr>
 <div class="memdoc">
 
 <p>
-Find a coroutine's ID. 
+Find the ID of a coroutine. 
 <p>
 Returns the ID of a registered coroutine.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>pFunc</em>&nbsp;</td><td>the coroutine to find the ID of </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pFunc</em>&nbsp;</td><td>the registered coroutine whose ID is requested </td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Return values:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>CR_INVALID_ID</em>&nbsp;</td><td>when no ID is found </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>ID</em>&nbsp;</td><td>the coroutine's ID </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>id</em>&nbsp;</td><td>a valid coroutine's ID </td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="demo__2_8c-example.html#a2">demo_2.c</a>, and <a class="el" href="demo__4_8c-example.html#a1">demo_4.c</a>.</dl>
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00197">197</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00204">204</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -164,13 +168,13 @@ Returns the ID of a registered coroutine.<p>
 <div class="memdoc">
 
 <p>
-A system coroutine thread. 
+The internal system's coroutine thread. 
 <p>
 This coroutine thread is used in conjunction with the cr_g_activate_id variable. cr_g_activate_id can be set to a coroutine's ID, e.g. in an ISR handler, and this function will activate the coroutine. This will work only if this function is explicitly called via CR_YIELD.<p>
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>This coroutine thread must be explicitly called for it to run. </dd></dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="demo__2_8c-example.html#a5">demo_2.c</a>, and <a class="el" href="demo__4_8c-example.html#a5">demo_4.c</a>.</dl>
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00264">264</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00274">274</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -212,7 +216,7 @@ This function sets a global pointer to the array holding all of the registered c
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>This initialization function must be the first function called in the library. </dd></dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="demo__1_8c-example.html#a4">demo_1.c</a>, <a class="el" href="demo__2_8c-example.html#a8">demo_2.c</a>, <a class="el" href="demo__3_8c-example.html#a4">demo_3.c</a>, and <a class="el" href="demo__4_8c-example.html#a8">demo_4.c</a>.</dl>
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00242">242</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00249">249</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -221,7 +225,7 @@ This function sets a global pointer to the array holding all of the registered c
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a> cr_register_thread           </td>
+          <td class="memname"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a> cr_register_thread           </td>
           <td>(</td>
           <td class="paramtype">void(*)(void)&nbsp;</td>
           <td class="paramname"> <em>pFunc</em>          </td>
@@ -245,7 +249,7 @@ This function creates an ID for the new coroutine thread and associates the ID w
 <dl class="attention" compact><dt><b>Attention:</b></dt><dd>All coroutine thread registration must be completed before calling CR_START. </dd></dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="demo__1_8c-example.html#a5">demo_1.c</a>, <a class="el" href="demo__2_8c-example.html#a9">demo_2.c</a>, <a class="el" href="demo__3_8c-example.html#a5">demo_3.c</a>, and <a class="el" href="demo__4_8c-example.html#a9">demo_4.c</a>.</dl>
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00312">312</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00326">326</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -266,11 +270,11 @@ This function creates an ID for the new coroutine thread and associates the ID w
 <div class="memdoc">
 
 <p>
-Resets the system to its initial state. 
+Resets the system to an initial state. 
 <p>
 This function sets all the system's global variables to their original state. <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="demo__1_8c-example.html#a2">demo_1.c</a>, <a class="el" href="demo__2_8c-example.html#a6">demo_2.c</a>, <a class="el" href="demo__3_8c-example.html#a2">demo_3.c</a>, and <a class="el" href="demo__4_8c-example.html#a6">demo_4.c</a>.</dl>
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00222">222</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00229">229</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -291,7 +295,7 @@ Pointer to the user defined array of coroutine contexts.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00158">158</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00165">165</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -311,7 +315,7 @@ The number of elements in the coroutine context array.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00163">163</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00170">170</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -320,7 +324,7 @@ The number of elements in the coroutine context array.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a> <a class="el" href="cr_8h.html#cf4ab64c8de56045d84e53b65dba7eb8">cr_g_current_cr_id</a> = CR_IDLE_THREAD_ID          </td>
+          <td class="memname"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a> <a class="el" href="cr_8h.html#cf4ab64c8de56045d84e53b65dba7eb8">cr_g_current_cr_id</a> = CR_IDLE_THREAD_ID          </td>
         </tr>
       </table>
 </div>
@@ -331,7 +335,7 @@ The ID of the coroutine that's active.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00177">177</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00184">184</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -340,7 +344,7 @@ The ID of the coroutine that's active.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="cr_8h.html#1b44cf07b15c1bbbf0b35156e2dffc40">cr_id_t</a> <a class="el" href="cr_8h.html#e7e93574baec3ae2b083c7f36916fbbd">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID          </td>
+          <td class="memname"><a class="el" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">cr_id_t</a> <a class="el" href="cr_8h.html#e7e93574baec3ae2b083c7f36916fbbd">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID          </td>
         </tr>
       </table>
 </div>
@@ -351,7 +355,7 @@ The ID of the previously active coroutine.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00182">182</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00189">189</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
@@ -371,12 +375,12 @@ Flag that's set when CR_START is called.
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c-source.html#l00172">172</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c-source.html#l00179">179</a> of file <a class="el" href="cr_8c-source.html">cr.c</a>.</p>
 
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu Jun 18 00:06:30 2009 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
