@@ -53,14 +53,12 @@ void* isr_thread( void* args )
 {
     static cr_uint32_t     cnt = 0;
 
-    while ( isr_thread_run )
-    {
+    while ( isr_thread_run ) {
         cnt = 0;
 
         // we want to simulate an external event
         // wait long enough so that all 4 coroutines have time to complete
-        while ( cnt < 100000 )
-        {
+        while ( cnt < 100000 ) {
             ++cnt;
         }
 
@@ -91,12 +89,10 @@ void Thread_A( void )
     // B. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         i = 1000;
 
-        while( i-- )
-        {
+        while( i-- ) {
             cnt += 1;
         }
 
@@ -117,12 +113,10 @@ void Thread_B( void )
     // B. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         i = 1000;
 
-        while ( i-- )
-        {
+        while ( i-- ) {
             cnt += 1;
         }
 
@@ -143,12 +137,10 @@ void Thread_C( void )
     // B. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         i = 1000;
 
-        while ( i-- )
-        {
+        while ( i-- ) {
             cnt += 1;
         }
 
@@ -169,12 +161,10 @@ void Thread_D( void )
     // B. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         i = 1000;
 
-        while ( i-- )
-        {
+        while ( i-- ) {
             cnt += 1;
         }
 
@@ -188,8 +178,7 @@ void Thread_D( void )
 
 void signal_handler( int signal )
 {
-    switch( signal )
-    {
+    switch( signal ) {
         case SIGFPE:
             perror( "A floating point exception occured.\n" );
             break;
@@ -247,20 +236,13 @@ int main( int argc, char* argv[] )
     atexit( cleanup );
 
     // some signal handlers
-    if ( signal( SIGFPE, signal_handler ) == SIG_ERR )
-    {
+    if ( signal( SIGFPE, signal_handler ) == SIG_ERR ) {
         perror( "An error occured while setting the SIGFPE signal handler.\n" );
-    }
-    else if ( signal( SIGILL, signal_handler ) == SIG_ERR )
-    {
+    } else if ( signal( SIGILL, signal_handler ) == SIG_ERR ) {
         perror( "An error occured while setting the SIGILL signal handler.\n" );
-    }
-    else if ( signal( SIGINT, signal_handler ) == SIG_ERR )
-    {
+    } else if ( signal( SIGINT, signal_handler ) == SIG_ERR ) {
         perror( "An error occured while setting the SIGINT signal handler.\n" );
-    }
-    else if ( signal( SIGSEGV, signal_handler ) == SIG_ERR )
-    {
+    } else if ( signal( SIGSEGV, signal_handler ) == SIG_ERR ) {
         perror( "An error occured while setting the SIGSEGV signal handler.\n" );
     }
 

@@ -35,25 +35,25 @@
 <a name="l00028"></a>00028 <span class="preprocessor">    #pragma warning (disable: 279)</span>
 <a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00030"></a>00030 <span class="preprocessor"></span>
-<a name="l00037"></a><a class="code" href="cr_8h.html#a058fade3e44aea5c2098896835e47fc">00037</a> <span class="keyword">typedef</span> int8_t      <span class="keyword">volatile</span> <a class="code" href="cr_8h.html#a058fade3e44aea5c2098896835e47fc" title="Coroutine variable typedefs.">cr_int8_t</a>;
-<a name="l00038"></a>00038 <span class="keyword">typedef</span> uint8_t     <span class="keyword">volatile</span> cr_uint8_t;
-<a name="l00039"></a>00039 <span class="keyword">typedef</span> int16_t     <span class="keyword">volatile</span> cr_int16_t;
-<a name="l00040"></a>00040 <span class="keyword">typedef</span> uint16_t    <span class="keyword">volatile</span> cr_uint16_t;
-<a name="l00041"></a>00041 <span class="keyword">typedef</span> int32_t     <span class="keyword">volatile</span> cr_int32_t;
-<a name="l00042"></a>00042 <span class="keyword">typedef</span> uint32_t    <span class="keyword">volatile</span> cr_uint32_t;
-<a name="l00043"></a>00043 <span class="keyword">typedef</span> int64_t     <span class="keyword">volatile</span> cr_int64_t;
-<a name="l00044"></a>00044 <span class="keyword">typedef</span> uint64_t    <span class="keyword">volatile</span> cr_uint64_t;
+<a name="l00037"></a><a class="code" href="cr_8h.html#a058fade3e44aea5c2098896835e47fc">00037</a> <span class="keyword">typedef</span> int8_t      <span class="keyword">volatile</span>  <a class="code" href="cr_8h.html#a058fade3e44aea5c2098896835e47fc" title="Coroutine variable typedefs.">cr_int8_t</a>;
+<a name="l00038"></a>00038 <span class="keyword">typedef</span> uint8_t     <span class="keyword">volatile</span>  cr_uint8_t;
+<a name="l00039"></a>00039 <span class="keyword">typedef</span> int16_t     <span class="keyword">volatile</span>  cr_int16_t;
+<a name="l00040"></a>00040 <span class="keyword">typedef</span> uint16_t    <span class="keyword">volatile</span>  cr_uint16_t;
+<a name="l00041"></a>00041 <span class="keyword">typedef</span> int32_t     <span class="keyword">volatile</span>  cr_int32_t;
+<a name="l00042"></a>00042 <span class="keyword">typedef</span> uint32_t    <span class="keyword">volatile</span>  cr_uint32_t;
+<a name="l00043"></a>00043 <span class="keyword">typedef</span> int64_t     <span class="keyword">volatile</span>  cr_int64_t;
+<a name="l00044"></a>00044 <span class="keyword">typedef</span> uint64_t    <span class="keyword">volatile</span>  cr_uint64_t;
 <a name="l00045"></a>00045 
 <a name="l00046"></a>00046 
 <a name="l00049"></a>00049 <span class="keyword">enum</span> {
-<a name="l00050"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b77f396d7461f79cb150ed6b69934f58ec">00050</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b77f396d7461f79cb150ed6b69934f58ec">SETJMP_DFLT_RET_VAL</a>         = 1,                    
-<a name="l00051"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b760cd04d936d5d89f7468cf9f5240a487">00051</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b760cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a>           = 0,                    
+<a name="l00050"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b77f396d7461f79cb150ed6b69934f58ec">00050</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b77f396d7461f79cb150ed6b69934f58ec">SETJMP_DFLT_RET_VAL</a>         =  1,                   
+<a name="l00051"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b760cd04d936d5d89f7468cf9f5240a487">00051</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b760cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a>           =  0,                   
 <a name="l00052"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b701288475e3cc36707461f9b757d00e74">00052</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b701288475e3cc36707461f9b757d00e74">CR_SYSTEM_STARTED</a>           = -1,                   
 <a name="l00053"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">00053</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7cd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a>               = -1,                   
 <a name="l00054"></a><a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7139db075566e7ab9f59a9de7f6d2359f">00054</a>     <a class="code" href="cr_8h.html#df764cbdea00d65edcd07bb9953ad2b7139db075566e7ab9f59a9de7f6d2359f">CR_THREAD_CNT_INIT</a>          = -1                    
 <a name="l00055"></a>00055 };
 <a name="l00056"></a>00056 
-<a name="l00062"></a><a class="code" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">00062</a> <span class="keyword">typedef</span> int32_t <span class="keyword">volatile</span> <a class="code" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>;
+<a name="l00062"></a><a class="code" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186">00062</a> <span class="keyword">typedef</span> int32_t <span class="keyword">volatile</span>  <a class="code" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>;
 <a name="l00063"></a>00063 
 <a name="l00070"></a><a class="code" href="struct_c_r___c_o_n_t_e_x_t.html">00070</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> {
 <a name="l00071"></a>00071     void        ( *pFunc )( void );
@@ -61,29 +61,29 @@
 <a name="l00073"></a>00073     <a class="code" href="cr_8h.html#e9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>     id;
 <a name="l00074"></a>00074 } <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>;
 <a name="l00075"></a>00075 
-<a name="l00089"></a><a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429">00089</a> <span class="preprocessor">#define CR_THREAD_INIT( )                                               \</span>
-<a name="l00090"></a>00090 <span class="preprocessor">            static cr_id_t this_id__;                                   \</span>
-<a name="l00091"></a>00091 <span class="preprocessor">            this_id__ = cr_g_current_cr_id;                             \</span>
-<a name="l00092"></a>00092 <span class="preprocessor">            if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {           \</span>
-<a name="l00093"></a>00093 <span class="preprocessor">                longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL );      \</span>
+<a name="l00089"></a><a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429">00089</a> <span class="preprocessor">#define CR_THREAD_INIT( )                                           \</span>
+<a name="l00090"></a>00090 <span class="preprocessor">            static cr_id_t this_id__;                               \</span>
+<a name="l00091"></a>00091 <span class="preprocessor">            this_id__ = cr_g_current_cr_id;                       \</span>
+<a name="l00092"></a>00092 <span class="preprocessor">            if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {   \</span>
+<a name="l00093"></a>00093 <span class="preprocessor">                longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL );  \</span>
 <a name="l00094"></a>00094 <span class="preprocessor">            } else { </span><span class="comment">/* explicit block for the longjmp */</span> ; }
 <a name="l00095"></a>00095 
-<a name="l00105"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf">00105</a> <span class="preprocessor">#define CR_START( func_name )                                                                           \</span>
-<a name="l00106"></a>00106 <span class="preprocessor">            cr_g_previous_cr_id = CR_INVALID_ID;                                                        \</span>
-<a name="l00107"></a>00107 <span class="preprocessor">            cr_g_current_cr_id = cr_get_id( func_name );                                                \</span>
+<a name="l00105"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf">00105</a> <span class="preprocessor">#define CR_START( func_name )                                                                               \</span>
+<a name="l00106"></a>00106 <span class="preprocessor">            cr_g_previous_cr_id = CR_INVALID_ID;                                                            \</span>
+<a name="l00107"></a>00107 <span class="preprocessor">            cr_g_current_cr_id = cr_get_id( func_name );                                                    \</span>
 <a name="l00108"></a>00108 <span class="preprocessor">            assert( ( cr_g_current_cr_id != CR_INVALID_ID ) &amp;&amp; "CR_START:  CR_INVALID_ID!\n" );         \</span>
-<a name="l00109"></a>00109 <span class="preprocessor">            assert( ( ( uint32_t ) cr_g_current_cr_id &lt; cr_g_context_cnt ) &amp;&amp; "CR_START: ID out of bounds!\n" );   \</span>
-<a name="l00110"></a>00110 <span class="preprocessor">            cr_g_sys_started = CR_SYSTEM_STARTED;                                                       \</span>
+<a name="l00109"></a>00109 <span class="preprocessor">            assert( ( ( uint32_t ) cr_g_current_cr_id &lt; cr_g_context_cnt ) &amp;&amp; "CR_START: ID out of bounds!\n" );\</span>
+<a name="l00110"></a>00110 <span class="preprocessor">            cr_g_sys_started = CR_SYSTEM_STARTED;                                                           \</span>
 <a name="l00111"></a>00111 <span class="preprocessor">            longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL )</span>
 <a name="l00112"></a>00112 <span class="preprocessor"></span>
-<a name="l00121"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b">00121</a> <span class="preprocessor">#define CR_YIELD( func_name )                                                                           \</span>
-<a name="l00122"></a>00122 <span class="preprocessor">            cr_g_current_cr_id = cr_get_id( func_name );                                                \</span>
-<a name="l00123"></a>00123 <span class="preprocessor">            assert( ( cr_g_current_cr_id != CR_INVALID_ID ) &amp;&amp; "CR_YIELD: CR_INVALID_ID!\n" );          \</span>
-<a name="l00124"></a>00124 <span class="preprocessor">            assert( ( ( uint32_t ) cr_g_current_cr_id &lt; cr_g_context_cnt) &amp;&amp; "CR_YIELD: ID out of bounds!\n" );    \</span>
-<a name="l00125"></a>00125 <span class="preprocessor">            assert( ( cr_g_current_cr_id != this_id__ ) &amp;&amp; "CR_YIELD: recursive coroutine call!\n" );   \</span>
-<a name="l00126"></a>00126 <span class="preprocessor">            cr_g_previous_cr_id = this_id__;                                                            \</span>
-<a name="l00127"></a>00127 <span class="preprocessor">            if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {                                           \</span>
-<a name="l00128"></a>00128 <span class="preprocessor">                longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL );                 \</span>
+<a name="l00121"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b">00121</a> <span class="preprocessor">#define CR_YIELD( func_name )                                                                               \</span>
+<a name="l00122"></a>00122 <span class="preprocessor">            cr_g_current_cr_id = cr_get_id( func_name );                                                    \</span>
+<a name="l00123"></a>00123 <span class="preprocessor">            assert( ( cr_g_current_cr_id != CR_INVALID_ID ) &amp;&amp; "CR_YIELD: CR_INVALID_ID!\n" );              \</span>
+<a name="l00124"></a>00124 <span class="preprocessor">            assert( ( ( uint32_t ) cr_g_current_cr_id &lt; cr_g_context_cnt) &amp;&amp; "CR_YIELD: ID out of bounds!\n" ); \</span>
+<a name="l00125"></a>00125 <span class="preprocessor">            assert( ( cr_g_current_cr_id != this_id__ ) &amp;&amp; "CR_YIELD: recursive coroutine call!\n" );       \</span>
+<a name="l00126"></a>00126 <span class="preprocessor">            cr_g_previous_cr_id = this_id__;                                                                \</span>
+<a name="l00127"></a>00127 <span class="preprocessor">            if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {                                               \</span>
+<a name="l00128"></a>00128 <span class="preprocessor">                longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL );                     \</span>
 <a name="l00129"></a>00129 <span class="preprocessor">            } else {  </span><span class="comment">/* explicit block for the longjmp */</span> ; }
 <a name="l00130"></a>00130 
 <a name="l00131"></a>00131 
@@ -118,7 +118,7 @@
 <a name="l00160"></a>00160 <span class="preprocessor"></span>
 <a name="l00161"></a>00161 <span class="comment">// end of file</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri May 28 09:13:08 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

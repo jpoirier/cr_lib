@@ -28,10 +28,10 @@
  *
  *  cr_lib is a simple, portable, cooperative multitasking environment using coroutines. It features a
  *  mechanism for exiting and re-entering a function in a non-standard way using the standard C library's
- *  setjmp and longjmp functions. Coroutine threads run one at a time where each thread must be explicitly
- *  scheduled. cr_lib does include a system coroutine, cr_idle, that can be used in conjunction with the
- *  variable cr_g_activate_id to activate a coroutine. cr_g_activate_id could be used, for example, in
- *  an ISR routine of an event driven system. \n
+ *  setjmp and longjmp functions. Coroutine threads run one at a time, are persistent for the lifetime of
+ *  the application, and each thread must be explicitly scheduled. cr_lib does include a system coroutine,
+ *  cr_idle, that can be used in conjunction with the variable cr_g_activate_id to activate a coroutine.
+ *  cr_g_activate_id could be used, for example, in an ISR routine of an event driven system. \n
  *
  *  cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educational purposes.
  *
@@ -40,7 +40,8 @@
  *  "A coroutine is represented by a closure (a code address and a referencing environment), into which
  *  we can jump by means of a nonlocal goto - in this case a special operation known as a transfer.
  *  In effect, coroutines are execution contexts that exist concurrently but execute one at a time,
- *  and transfer control to each other explicitly by name." From  <I> Programming Language Pragmatics by Morgan Kaufmann </I> \n
+ *  and transfer control to each other explicitly by name."
+ *  From  <I> Programming Language Pragmatics by Morgan Kaufmann </I> \n
  *
  *  <b> Using cr_lib </b>
  *  - Initialize cr_lib by calling "cr_init" with the appropriate paramters
@@ -78,8 +79,7 @@
     {                                               {
         CR_THREAD_INIT( );                              CR_THREAD_INIT( );
 
-        for ( ; ; )                                     while ( 1 )
-        {                                               {
+        for ( ; ; ) {                                   while ( 1 ) {
             // main body of code                             // main body of code
             CR_YIELD( Thread_B );                            CR_YIELD( cr_idle );
 
@@ -99,8 +99,7 @@
 
         CR_THREAD_INIT( );
 
-        for ( ;; )
-        {
+        for ( ;; ) {
             count += 1;
 
             // main body of code
@@ -206,12 +205,9 @@ cr_id_t cr_get_id( void ( *pFunc )( void ) )
     int32_t i;
     cr_id_t id = CR_INVALID_ID;
 
-    for ( i = 0; i <= cr_g_thread_cnt; i++ )
-    {
-        if ( cr_g_context[ i ].pFunc == pFunc )
-        {
+    for ( i = 0; i <= cr_g_thread_cnt; i++ ) {
+        if ( cr_g_context[ i ].pFunc == pFunc ) {
             id = i;
-
             break;
         }
     }
@@ -282,11 +278,9 @@ void cr_idle( void )
 
     // This will be the entry point when longjump is called with cr_idle's context.
     // No need to perform another setjmp from within the loop; not much happening.
-    for ( ; ; )
-    {
+    for ( ; ; ) {
         // Spin until a non-idle thread is activated.
-        if ( cr_g_activate_id == CR_IDLE_THREAD_ID )
-        {
+        if ( cr_g_activate_id == CR_IDLE_THREAD_ID ) {
             continue;
         }
 
@@ -298,12 +292,9 @@ void cr_idle( void )
         cr_g_activate_id    = CR_IDLE_THREAD_ID;
         cr_g_previous_cr_id = CR_IDLE_THREAD_ID;
 
-        if ( !setjmp( cr_g_context[ CR_IDLE_THREAD_ID ].env ) )
-        {
+        if ( !setjmp( cr_g_context[ CR_IDLE_THREAD_ID ].env ) ) {
             longjmp( cr_g_context[ temp_id ].env, SETJMP_DFLT_RET_VAL );
-        }
-        else
-        {
+        } else {
             /* explicit block for the longjmp */ ;
         }
     }
@@ -328,11 +319,9 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) )
     // Increase the coroutine count.
     cr_g_thread_cnt += 1;
 
-    if ( cr_g_thread_cnt == CR_IDLE_THREAD_ID )
-    {
-        if ( pFunc != cr_idle )
-        {
-            perror( "cr_idle error: cr_g_thread_cnt !=  CR_IDLE_THREAD_ID. Note, coroutines shouldn't be registered prior to calling cr_init." );
+    if ( cr_g_thread_cnt == CR_IDLE_THREAD_ID ) {
+        if ( pFunc != cr_idle ) {
+            perror( "cr_idle error: cr_g_thread_cnt != CR_IDLE_THREAD_ID. Note, coroutines shouldn't be registered prior to calling cr_init." );
         }
     }
 
@@ -350,13 +339,11 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) )
     // the coroutine.
     cr_g_current_cr_id = cr_g_thread_cnt;
 
-    if ( !setjmp( cr_g_reg_func_env ) )
-    {
+    if ( !setjmp( cr_g_reg_func_env ) ) {
         pFunc( ); // this function won't return normally
-    }
-    else
-    {
-        /* explicit block for the longjmp */ ;
+    } else {
+        /* explicit block for the longjmp */
+		;
     }
 
     // The function is now a coroutine.
@@ -365,8 +352,7 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) )
     // A sentinal. At init the coroutine returned via a longjump so the return
     // point saved in the function's prolog is valid and will return here
     // should the coroutine actually return normally via the epilog code.
-    if ( cr_g_sys_started == CR_SYSTEM_STARTED )
-    {
+    if ( cr_g_sys_started == CR_SYSTEM_STARTED ) {
         // What to do?
         // - nothing and return normally
         // - yield to whatever is in cr_g_previous_cr_id

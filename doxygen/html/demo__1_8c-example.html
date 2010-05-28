@@ -23,181 +23,185 @@
 
 <span class="preprocessor">#include "<a class="code" href="cr_8h.html">cr.h</a>"</span>
 
-<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_A(<span class="keywordtype">void</span>);
-<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_B(<span class="keywordtype">void</span>);
-<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_C(<span class="keywordtype">void</span>);
-<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_D(<span class="keywordtype">void</span>);
-<span class="keyword">static</span> <span class="keywordtype">void</span> cleanup(<span class="keywordtype">void</span>);
-<span class="keyword">static</span> <span class="keywordtype">void</span> signal_handler(<span class="keywordtype">int</span> signal);
+<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_A( <span class="keywordtype">void</span> );
+<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_B( <span class="keywordtype">void</span> );
+<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_C( <span class="keywordtype">void</span> );
+<span class="keyword">static</span> <span class="keywordtype">void</span> Thread_D( <span class="keywordtype">void</span> );
+<span class="keyword">static</span> <span class="keywordtype">void</span> cleanup( <span class="keywordtype">void</span> );
+<span class="keyword">static</span> <span class="keywordtype">void</span> signal_handler( <span class="keywordtype">int</span> signal );
 
-<span class="keywordtype">void</span> Thread_A(<span class="keywordtype">void</span>)
+<span class="keywordtype">void</span> Thread_A( <span class="keywordtype">void</span> )
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    <span class="comment">// A. locals use the 'volatile' qualifier</span>
+    cr_int32_t      i;
+    cr_uint32_t     cnt = 0;
 
-    <span class="comment">// A. the required init call</span>
-    <a name="a0"></a><a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+    <span class="comment">// B. the required init call</span>
+    <a name="a0"></a><a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-    <span class="keywordflow">for</span>(;;)
-    {
+    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {
         i = 100000;
 
-        <span class="keywordflow">while</span>(i--)
+        <span class="keywordflow">while</span> ( i-- ) {
             cnt += 1;
+        }
 
-        printf(<span class="stringliteral">"- Thread_A yielding to Thread_B\n"</span>);
+        printf( <span class="stringliteral">"- Thread_A yielding to Thread_B\n"</span> );
 
-        assert(Thread_B &amp;&amp; <span class="stringliteral">"Thread_A: Thread_B pointer is invalid!"</span>);
+        assert( Thread_B &amp;&amp; <span class="stringliteral">"Thread_A: Thread_B pointer is invalid!"</span> );
 
-        <span class="comment">// B. explicitly yield - to Thread_B</span>
-        <a name="a1"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_B);
+        <span class="comment">// C. explicitly yield - to Thread_B</span>
+        <a name="a1"></a><a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_B );
     }
 }
 
-<span class="keywordtype">void</span> Thread_B(<span class="keywordtype">void</span>)
+<span class="keywordtype">void</span> Thread_B( <span class="keywordtype">void</span> )
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    <span class="comment">// A. locals use the 'volatile' qualifier</span>
+    cr_int32_t      i;
+    cr_uint32_t     cnt = 0;
 
-    <span class="comment">// A. the required init call</span>
-    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+    <span class="comment">// B. the required init call</span>
+    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-    <span class="keywordflow">for</span>(;;)
-    {
+    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {
         i = 100000;
 
-        <span class="keywordflow">while</span>(i--)
+        <span class="keywordflow">while</span> ( i-- ) {
             cnt += 1;
+        }
 
-        printf(<span class="stringliteral">"- Thread_B yielding to Thread_C\n"</span>);
+        printf( <span class="stringliteral">"- Thread_B yielding to Thread_C\n"</span> );
 
-        assert(Thread_C &amp;&amp; <span class="stringliteral">"Thread_B: Thread_C pointer is invalid!"</span>);
+        assert( Thread_C &amp;&amp; <span class="stringliteral">"Thread_B: Thread_C pointer is invalid!"</span> );
 
-        <span class="comment">// B. explicitly yield - to Thread_C</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_C);
+        <span class="comment">// C. explicitly yield - to Thread_C</span>
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_C );
     }
 }
 
-<span class="keywordtype">void</span> Thread_C(<span class="keywordtype">void</span>)
+<span class="keywordtype">void</span> Thread_C( <span class="keywordtype">void</span> )
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    <span class="comment">// A. locals use the 'volatile' qualifier</span>
+    cr_int32_t      i;
+    cr_uint32_t     cnt = 0;
 
-    <span class="comment">// A. the required init call</span>
-    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+    <span class="comment">// B. the required init call</span>
+    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-    <span class="keywordflow">for</span>(;;)
-    {
+    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {
         i = 100000;
 
-        <span class="keywordflow">while</span>(i--)
+        <span class="keywordflow">while</span> ( i-- ) {
             cnt += 1;
+        }
 
-        printf(<span class="stringliteral">"- Thread_C yielding to Thread_D\n"</span>);
+        printf( <span class="stringliteral">"- Thread_C yielding to Thread_D\n"</span> );
 
-        assert(Thread_D &amp;&amp; <span class="stringliteral">"Thread_C: Thread_D pointer is invalid!"</span>);
+        assert( Thread_D &amp;&amp; <span class="stringliteral">"Thread_C: Thread_D pointer is invalid!"</span> );
 
-        <span class="comment">// B. explicitly yield - to Thread_D</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_D);
+        <span class="comment">// C. explicitly yield - to Thread_D</span>
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_D );
     }
 }
 
-<span class="keywordtype">void</span> Thread_D(<span class="keywordtype">void</span>)
+<span class="keywordtype">void</span> Thread_D( <span class="keywordtype">void</span> )
 {
-    int32_t     i;
-    uint32_t    cnt = 0;
+    <span class="comment">// A. locals use the 'volatile' qualifier</span>
+    cr_int32_t      i;
+    cr_uint32_t     cnt = 0;
 
-    <span class="comment">// A. the required init call</span>
-    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>();
+    <span class="comment">// B. the required init call</span>
+    <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-    <span class="keywordflow">for</span>(;;)
-    {
+    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {
         i = 100000;
 
-        <span class="keywordflow">while</span>(i--)
+        <span class="keywordflow">while</span> ( i-- ) {
             cnt += 1;
+        }
 
-        printf(<span class="stringliteral">"- Thread_D yielding to Thread_A\n"</span>);
+        printf( <span class="stringliteral">"- Thread_D yielding to Thread_A\n"</span> );
 
-        assert(Thread_A &amp;&amp; <span class="stringliteral">"Thread_D: Thread_A pointer is invalid!"</span>);
+        assert( Thread_A &amp;&amp; <span class="stringliteral">"Thread_D: Thread_A pointer is invalid! "</span>);
 
-        <span class="comment">// B. explicitly yield - to Thread_A</span>
-        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>(Thread_A);
+        <span class="comment">// C. explicitly yield - to Thread_A</span>
+        <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_A );
     }
 }
 
-<span class="keywordtype">void</span> signal_handler(<span class="keywordtype">int</span> signal)
+<span class="keywordtype">void</span> signal_handler( <span class="keywordtype">int</span> signal )
 {
-    <span class="keywordflow">switch</span>(signal)
-    {
+    <span class="keywordflow">switch</span>( signal ) {
         <span class="keywordflow">case</span> SIGFPE:
-            perror(<span class="stringliteral">"A floating point exception occured.\n"</span>);
+            perror( <span class="stringliteral">"A floating point exception occured.\n"</span> );
             <span class="keywordflow">break</span>;
         <span class="keywordflow">case</span> SIGILL:
-            perror(<span class="stringliteral">"An illegal instruction occured.\n"</span>);
+            perror( <span class="stringliteral">"An illegal instruction occured.\n"</span> );
             <span class="keywordflow">break</span>;
         <span class="keywordflow">case</span> SIGINT:
             <span class="comment">// user hit CTRL-C</span>
             <span class="keywordflow">break</span>;
         <span class="keywordflow">case</span> SIGSEGV:
-            perror(<span class="stringliteral">"A segmentation violation occured.\n"</span>);
+            perror( <span class="stringliteral">"A segmentation violation occured.\n"</span> );
             <span class="keywordflow">break</span>;
         <span class="keywordflow">default</span>:
-            perror(<span class="stringliteral">"An unknown signal was caught.\n"</span>);
+            perror( <span class="stringliteral">"An unknown signal was caught.\n"</span> );
             <span class="keywordflow">break</span>;
     }
 
     <span class="comment">// be sure and pass EXIT_SUCCESS for the registered atexit function handler</span>
-    exit(EXIT_SUCCESS);
+    exit( EXIT_SUCCESS );
 }
 
-<span class="keywordtype">void</span> cleanup(<span class="keywordtype">void</span>)
+<span class="keywordtype">void</span> cleanup( <span class="keywordtype">void</span> )
 {
-    <a name="a2"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>();
+    <a name="a2"></a><a class="code" href="cr_8c.html#3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>( );
 
-    printf(<span class="stringliteral">"    Exiting...\n"</span> );
+    printf( <span class="stringliteral">"    Exiting...\n"</span> );
 }
 
-<span class="comment">// 4 threads plus 1 element for the idle thread</span>
-<span class="preprocessor">#define CONTEXT_ARRAY_CNT (4 + 2)</span>
+<span class="comment">// 4 user threads plus 1 the system's idle thread</span>
+<span class="preprocessor">#define CONTEXT_ARRAY_CNT ( 4 + 1 )</span>
 <span class="preprocessor"></span>
-<span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])
+<span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[] )
 {
     <span class="comment">// we explicitly create the array of CR_CONTEXT structures</span>
-    <a name="_a3"></a><a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> context_array[CONTEXT_ARRAY_CNT];
+    <a name="_a3"></a><a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> context_array[ CONTEXT_ARRAY_CNT ];
 
     <span class="comment">// register a cleanup function</span>
-    atexit(cleanup);
+    atexit( cleanup );
 
     <span class="comment">// some signal handlers</span>
-    <span class="keywordflow">if</span>(signal(SIGFPE, signal_handler) == SIG_ERR)
-        perror(<span class="stringliteral">"An error occured while setting the SIGFPE signal handler.\n"</span>);
-
-    <span class="keywordflow">if</span>(signal(SIGILL, signal_handler) == SIG_ERR)
-        perror(<span class="stringliteral">"An error occured while setting the SIGILL signal handler.\n"</span>);
-
-    <span class="keywordflow">if</span>(signal(SIGINT, signal_handler) == SIG_ERR)
-        perror(<span class="stringliteral">"An error occured while setting the SIGINT signal handler.\n"</span>);
-
-    <span class="keywordflow">if</span>(signal(SIGSEGV, signal_handler) == SIG_ERR)
-        perror(<span class="stringliteral">"An error occured while setting the SIGSEGV signal handler.\n"</span>);
+    <span class="keywordflow">if</span> ( signal( SIGFPE, signal_handler ) == SIG_ERR ) {
+        perror( <span class="stringliteral">"An error occured while setting the SIGFPE signal handler.\n"</span> );
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (signal( SIGILL, signal_handler ) == SIG_ERR ) {
+        perror(<span class="stringliteral">"An error occured while setting the SIGILL signal handler.\n"</span> );
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( signal( SIGINT, signal_handler ) == SIG_ERR ) {
+        perror(<span class="stringliteral">"An error occured while setting the SIGINT signal handler.\n"</span> );
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( signal( SIGSEGV, signal_handler ) == SIG_ERR ) {
+        perror( <span class="stringliteral">"An error occured while setting the SIGSEGV signal handler.\n"</span> );
+    }
 
     <span class="comment">// 1. init the cr library</span>
-    <a name="a4"></a><a class="code" href="cr_8c.html#ca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>(context_array, CONTEXT_ARRAY_CNT);
+    assert( ( ( <span class="keyword">sizeof</span>( context_array ) / <span class="keyword">sizeof</span>( <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> ) ) == CONTEXT_ARRAY_CNT )
+                                        &amp;&amp; <span class="stringliteral">"context_array size mismatch!\n"</span> );
+
+    <a name="a4"></a><a class="code" href="cr_8c.html#ca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>( context_array, CONTEXT_ARRAY_CNT );
 
     <span class="comment">// 2. register the threads</span>
-    <a name="a5"></a><a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_A);
-    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_B);
-    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_C);
-    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>(Thread_D);
+    <a name="a5"></a><a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_A );
+    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_B );
+    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_C );
+    <a class="code" href="cr_8c.html#e30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( Thread_D );
 
     <span class="comment">// 3. bootstrap the system</span>
-    <a name="a6"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>(Thread_A);
+    <a name="a6"></a><a class="code" href="cr_8h.html#d89b832374912ca6c097b550a95a8ebf" title="Starts the cr_lib system.">CR_START</a>( Thread_A );
 
     <span class="keywordflow">return</span> EXIT_SUCCESS;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri May 28 09:13:08 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

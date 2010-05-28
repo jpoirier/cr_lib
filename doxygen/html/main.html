@@ -18,7 +18,7 @@
 <div class="contents">
 <h1>cr_lib Documentation</h1>
 <p>
-<h3 align="center">v1.0 </h3>cr_lib is a simple, portable, cooperative multitasking environment using coroutines. It features a mechanism for exiting and re-entering a function in a non-standard way using the standard C library's setjmp and longjmp functions. Coroutine threads run one at a time where each thread must be explicitly scheduled. cr_lib does include a system coroutine, cr_idle, that can be used in conjunction with the variable cr_g_activate_id to activate a coroutine. cr_g_activate_id could be used, for example, in an ISR routine of an event driven system. <br>
+<h3 align="center">v1.0 </h3>cr_lib is a simple, portable, cooperative multitasking environment using coroutines. It features a mechanism for exiting and re-entering a function in a non-standard way using the standard C library's setjmp and longjmp functions. Coroutine threads run one at a time, are persistent for the lifetime of the application, and each thread must be explicitly scheduled. cr_lib does include a system coroutine, cr_idle, that can be used in conjunction with the variable cr_g_activate_id to activate a coroutine. cr_g_activate_id could be used, for example, in an ISR routine of an event driven system. <br>
 <p>
 cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educational purposes.<p>
 <b> What is a coroutine: </b> <br>
@@ -56,8 +56,7 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
     {                                               {
         <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );                              <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-        <span class="keywordflow">for</span> ( ; ; )                                     <span class="keywordflow">while</span> ( 1 )
-        {                                               {
+        <span class="keywordflow">for</span> ( ; ; ) {                                   <span class="keywordflow">while</span> ( 1 ) {
             <span class="comment">// main body of code                             // main body of code</span>
             <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( Thread_B );                            <a class="code" href="cr_8h.html#18adb578c9437579bc39134852d4fc5b" title="Explicitly yields to a coroutine.">CR_YIELD</a>( <a class="code" href="cr_8c.html#ccd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> );
 
@@ -77,8 +76,7 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 
         <a class="code" href="cr_8h.html#c68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
 
-        <span class="keywordflow">for</span> ( ;; )
-        {
+        <span class="keywordflow">for</span> ( ;; ) {
             count += 1;
 
             <span class="comment">// main body of code</span>
@@ -119,7 +117,7 @@ cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educa
 <ul>
 <li>The longjmp's second parameter could probably be used to identify the previously running coroutine and to set the cr_g_previous_cr_id variable once the jump is completed. To do so would require sanity checking that there aren't more coroutines registered than the size of the longjmp's second parameter type, but it would really only save two or three lines of code in the macros. </li></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 25 13:04:58 2010 for cr_lib by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri May 28 09:13:08 2010 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

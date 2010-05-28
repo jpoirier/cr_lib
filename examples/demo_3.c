@@ -32,8 +32,7 @@ void Thread_A( void)
     // A. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         worker( );
         assert( Thread_B && "Thread_A: Thread_B pointer is invalid!" );
 
@@ -90,8 +89,7 @@ void Thread_B( void )
     // A. the required init call
     CR_THREAD_INIT( );
 
-    while ( true )
-    {
+    while ( true ) {
         worker( );
 
         printf( "- Thread_B yielding to Thread_A\n" );
@@ -106,16 +104,14 @@ void worker( void )
     int32_t      i      = 100000;
     uint32_t     cnt    = 0;
 
-    while ( i-- )
-    {
+    while ( i-- ) {
         cnt += 1;
     }
 }
 
 void signal_handler( int signal )
 {
-    switch( signal )
-    {
+    switch( signal ) {
         case SIGFPE:
             perror( "A floating point exception occured.\n" );
             break;
@@ -156,20 +152,13 @@ int main( int argc, char* argv[] )
     atexit( cleanup );
 
     // some signal handlers
-    if ( signal( SIGFPE, signal_handler) == SIG_ERR )
-    {
+    if ( signal( SIGFPE, signal_handler) == SIG_ERR ) {
         perror( "An error occured while setting the SIGFPE signal handler.\n" );
-    }
-    else if ( signal( SIGILL, signal_handler) == SIG_ERR )
-    {
+    } else if ( signal( SIGILL, signal_handler) == SIG_ERR ) {
         perror( "An error occured while setting the SIGILL signal handler.\n" );
-    }
-    else if ( signal( SIGINT, signal_handler) == SIG_ERR )
-    {
+    } else if ( signal( SIGINT, signal_handler) == SIG_ERR ) {
         perror( "An error occured while setting the SIGINT signal handler.\n" );
-    }
-    else if ( signal( SIGSEGV, signal_handler) == SIG_ERR )
-    {
+    } else if ( signal( SIGSEGV, signal_handler) == SIG_ERR ) {
         perror( "An error occured while setting the SIGSEGV signal handler.\n" );
     }
 
