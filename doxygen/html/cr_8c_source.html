@@ -11,7 +11,7 @@
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li><a href="main.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
@@ -38,172 +38,165 @@
 <a name="l00024"></a>00024 <span class="preprocessor">#include &quot;<a class="code" href="cr__config_8h.html">cr_config.h</a>&quot;</span>
 <a name="l00025"></a>00025 <span class="preprocessor">#include &quot;<a class="code" href="cr_8h.html">cr.h</a>&quot;</span>
 <a name="l00026"></a>00026 
-<a name="l00155"></a>00155 <span class="keyword">enum</span> {
-<a name="l00156"></a><a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">00156</a>     <a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">CR_ERROR_CR_EXITING</a> = 0 
-<a name="l00157"></a>00157 };
-<a name="l00158"></a>00158 
-<a name="l00159"></a>00159 jmp_buf                 cr_g_reg_func_env;
+<a name="l00150"></a>00150 <span class="keyword">enum</span> {
+<a name="l00151"></a><a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">00151</a>   <a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">CR_ERROR_CR_EXITING</a> = 0 
+<a name="l00152"></a>00152 };
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 jmp_buf     cr_g_reg_func_env;
+<a name="l00155"></a>00155 
+<a name="l00159"></a><a class="code" href="cr_8h.html#a22841ff791649abd0bcb62392ebb9778">00159</a> <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>*   <a class="code" href="cr_8c.html#a22841ff791649abd0bcb62392ebb9778" title="Pointer to the user defined array of coroutine contexts.">cr_g_context</a>    = 0;
 <a name="l00160"></a>00160 
-<a name="l00164"></a><a class="code" href="cr_8h.html#a22841ff791649abd0bcb62392ebb9778">00164</a> <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>*             <a class="code" href="cr_8c.html#a22841ff791649abd0bcb62392ebb9778" title="Pointer to the user defined array of coroutine contexts.">cr_g_context</a>        = 0;
+<a name="l00164"></a><a class="code" href="cr_8h.html#a8238e77b653b2cc4905373b805fc3567">00164</a> uint32_t    <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>  = 0;
 <a name="l00165"></a>00165 
-<a name="l00169"></a><a class="code" href="cr_8h.html#a8238e77b653b2cc4905373b805fc3567">00169</a> uint32_t                <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>    = 0;
-<a name="l00170"></a>00170 
-<a name="l00173"></a><a class="code" href="cr_8h.html#a1345c6db4d2d1d939e7841da46704d8e">00173</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>                 <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>    = CR_IDLE_THREAD_ID;
+<a name="l00168"></a><a class="code" href="cr_8h.html#a1345c6db4d2d1d939e7841da46704d8e">00168</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>     <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>  = CR_IDLE_THREAD_ID;
+<a name="l00169"></a>00169 
+<a name="l00173"></a><a class="code" href="cr_8h.html#a00999e3368c59592db0c069abf1f1296">00173</a> int32_t     <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a>  = <span class="keyword">false</span>;
 <a name="l00174"></a>00174 
-<a name="l00178"></a><a class="code" href="cr_8h.html#a00999e3368c59592db0c069abf1f1296">00178</a> int32_t                 <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a>    = <span class="keyword">false</span>;
+<a name="l00178"></a><a class="code" href="cr_8h.html#acf4ab64c8de56045d84e53b65dba7eb8">00178</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>     <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a>  = CR_IDLE_THREAD_ID;
 <a name="l00179"></a>00179 
-<a name="l00183"></a><a class="code" href="cr_8h.html#acf4ab64c8de56045d84e53b65dba7eb8">00183</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>                 <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a>  = CR_IDLE_THREAD_ID;
+<a name="l00183"></a><a class="code" href="cr_8h.html#ae7e93574baec3ae2b083c7f36916fbbd">00183</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>     <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID;
 <a name="l00184"></a>00184 
-<a name="l00188"></a><a class="code" href="cr_8h.html#ae7e93574baec3ae2b083c7f36916fbbd">00188</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a>                 <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a>  = CR_IDLE_THREAD_ID;
+<a name="l00188"></a>00188 <span class="keyword">static</span> int32_t    cr_g_thread_cnt   = CR_THREAD_CNT_INIT;
 <a name="l00189"></a>00189 
-<a name="l00193"></a>00193 <span class="keyword">static</span> int32_t          cr_g_thread_cnt      = CR_THREAD_CNT_INIT;
-<a name="l00194"></a>00194 
-<a name="l00203"></a><a class="code" href="cr_8h.html#a3e7a31163658d81c9473e5b637d9eb90">00203</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <a class="code" href="cr_8c.html#a3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>( <span class="keywordtype">void</span> ( *pFunc )( <span class="keywordtype">void</span> ) )
-<a name="l00204"></a>00204 {
-<a name="l00205"></a>00205     int32_t i;
-<a name="l00206"></a>00206     <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <span class="keywordtype">id</span> = CR_INVALID_ID;
-<a name="l00207"></a>00207 
-<a name="l00208"></a>00208     <span class="keywordflow">for</span> ( i = 0; i &lt;= cr_g_thread_cnt; i++ ) {
-<a name="l00209"></a>00209         <span class="keywordflow">if</span> ( cr_g_context[ i ].pFunc == pFunc ) {
-<a name="l00210"></a>00210             <span class="keywordtype">id</span> = i;
-<a name="l00211"></a>00211             <span class="keywordflow">break</span>;
-<a name="l00212"></a>00212         }
-<a name="l00213"></a>00213     }
+<a name="l00198"></a><a class="code" href="cr_8h.html#a3e7a31163658d81c9473e5b637d9eb90">00198</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <a class="code" href="cr_8c.html#a3e7a31163658d81c9473e5b637d9eb90" title="Find the ID of a coroutine.">cr_get_id</a>( <span class="keywordtype">void</span> ( *pFunc )( <span class="keywordtype">void</span> ) ) {
+<a name="l00199"></a>00199   int32_t i;
+<a name="l00200"></a>00200   <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <span class="keywordtype">id</span> = CR_INVALID_ID;
+<a name="l00201"></a>00201 
+<a name="l00202"></a>00202   <span class="keywordflow">for</span> ( i = 0; i &lt;= cr_g_thread_cnt; i++ ) {
+<a name="l00203"></a>00203     <span class="keywordflow">if</span> ( cr_g_context[ i ].pFunc == pFunc ) {
+<a name="l00204"></a>00204       <span class="keywordtype">id</span> = i;
+<a name="l00205"></a>00205       <span class="keywordflow">break</span>;
+<a name="l00206"></a>00206     }
+<a name="l00207"></a>00207   }
+<a name="l00208"></a>00208 
+<a name="l00209"></a>00209 <span class="comment">//  printf( &quot;cr_get_id pFunc: 0x%X\n&quot;, pFunc );</span>
+<a name="l00210"></a>00210 <span class="comment">//  printf( &quot;cr_get_id id: %d\n&quot;, id );</span>
+<a name="l00211"></a>00211 
+<a name="l00212"></a>00212   <span class="keywordflow">return</span> id;
+<a name="l00213"></a>00213 }
 <a name="l00214"></a>00214 
-<a name="l00215"></a>00215 <span class="comment">//    printf( &quot;cr_get_id pFunc: 0x%X\n&quot;, pFunc );</span>
-<a name="l00216"></a>00216 <span class="comment">//    printf( &quot;cr_get_id id: %d\n&quot;, id );</span>
-<a name="l00217"></a>00217 
-<a name="l00218"></a>00218     <span class="keywordflow">return</span> id;
-<a name="l00219"></a>00219 }
-<a name="l00220"></a>00220 
-<a name="l00225"></a><a class="code" href="cr_8h.html#a3e8d6963f6ee2cc49502186eca21d879">00225</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#a3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>( <span class="keywordtype">void</span> )
-<a name="l00226"></a>00226 {
-<a name="l00227"></a>00227     cr_g_context        = 0;
-<a name="l00228"></a>00228     <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>    = 0;
-<a name="l00229"></a>00229     cr_g_thread_cnt     = CR_THREAD_CNT_INIT;
-<a name="l00230"></a>00230     <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a> = CR_INVALID_ID;
-<a name="l00231"></a>00231     <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a>  = CR_INVALID_ID;
-<a name="l00232"></a>00232     <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>    = CR_IDLE_THREAD_ID;
-<a name="l00233"></a>00233     <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a>    = <span class="keyword">false</span>;
-<a name="l00234"></a>00234 }
-<a name="l00235"></a>00235 
-<a name="l00245"></a><a class="code" href="cr_8h.html#aca6b87323f9ce0bf21b3f06209a97989">00245</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#aca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>( <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>*    cr_context,
-<a name="l00246"></a>00246               <span class="keywordtype">size_t</span>         cr_context_count )
-<a name="l00247"></a>00247 {
-<a name="l00248"></a>00248     <span class="comment">// Init the array of CR_CONTEXT structs as well as the globals.</span>
-<a name="l00249"></a>00249     assert( cr_context &amp;&amp; <span class="stringliteral">&quot;user param cr_context must be non-zero!\n&quot;</span> );
-<a name="l00250"></a>00250     assert( ( cr_context_count &gt; 0 ) &amp;&amp; <span class="stringliteral">&quot;user param cr_context_count must be non-zero!\n&quot;</span> );
+<a name="l00219"></a><a class="code" href="cr_8h.html#a3e8d6963f6ee2cc49502186eca21d879">00219</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#a3e8d6963f6ee2cc49502186eca21d879" title="Resets the system to an initial state.">cr_reset</a>( <span class="keywordtype">void</span> ) {
+<a name="l00220"></a>00220   cr_g_context    = 0;
+<a name="l00221"></a>00221   <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>  = 0;
+<a name="l00222"></a>00222   cr_g_thread_cnt   = CR_THREAD_CNT_INIT;
+<a name="l00223"></a>00223   <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a> = CR_INVALID_ID;
+<a name="l00224"></a>00224   <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a>  = CR_INVALID_ID;
+<a name="l00225"></a>00225   <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>  = CR_IDLE_THREAD_ID;
+<a name="l00226"></a>00226   <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a>  = <span class="keyword">false</span>;
+<a name="l00227"></a>00227 }
+<a name="l00228"></a>00228 
+<a name="l00238"></a><a class="code" href="cr_8h.html#aca6b87323f9ce0bf21b3f06209a97989">00238</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#aca6b87323f9ce0bf21b3f06209a97989" title="cr_lib&amp;#39;s initialization function.">cr_init</a>( <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a>* cr_context, <span class="keywordtype">size_t</span> cr_context_count ) {
+<a name="l00239"></a>00239   <span class="comment">// Init the array of CR_CONTEXT structs as well as the globals.</span>
+<a name="l00240"></a>00240   assert( cr_context &amp;&amp; <span class="stringliteral">&quot;user param cr_context must be non-zero!\n&quot;</span> );
+<a name="l00241"></a>00241   assert( ( cr_context_count &gt; 0 ) &amp;&amp; <span class="stringliteral">&quot;user param cr_context_count must be non-zero!\n&quot;</span> );
+<a name="l00242"></a>00242 
+<a name="l00243"></a>00243   memset( cr_context, 0, cr_context_count * <span class="keyword">sizeof</span>( <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> ) );
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245   cr_g_context    = cr_context;
+<a name="l00246"></a>00246   <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>  = ( uint32_t ) cr_context_count;
+<a name="l00247"></a>00247 
+<a name="l00248"></a>00248   <span class="comment">// Register the idle thread, which should _always_ be the first coroutine registered.</span>
+<a name="l00249"></a>00249   <a class="code" href="cr_8c.html#ae30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> );
+<a name="l00250"></a>00250 }
 <a name="l00251"></a>00251 
-<a name="l00252"></a>00252     memset( cr_context, 0, cr_context_count * <span class="keyword">sizeof</span>( <a class="code" href="struct_c_r___c_o_n_t_e_x_t.html" title="Coroutine context information.">CR_CONTEXT</a> ) );
-<a name="l00253"></a>00253 
-<a name="l00254"></a>00254     cr_g_context        = cr_context;
-<a name="l00255"></a>00255     <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>    = ( uint32_t ) cr_context_count;
-<a name="l00256"></a>00256 
-<a name="l00257"></a>00257     <span class="comment">// Register the idle thread, which should _always_ be the first coroutine registered.</span>
-<a name="l00258"></a>00258     <a class="code" href="cr_8c.html#ae30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> );
-<a name="l00259"></a>00259 }
-<a name="l00260"></a>00260 
-<a name="l00270"></a><a class="code" href="cr_8h.html#accd73b48023970380bfdecb56483976c">00270</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>( <span class="keywordtype">void</span> )
-<a name="l00271"></a>00271 {
-<a name="l00272"></a>00272     <span class="comment">// This needs to be static because the function initially returns normally.</span>
-<a name="l00273"></a>00273     <span class="keyword">static</span> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> temp_id;
-<a name="l00274"></a>00274 
-<a name="l00275"></a>00275     <a class="code" href="cr_8h.html#ac68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
+<a name="l00261"></a><a class="code" href="cr_8h.html#accd73b48023970380bfdecb56483976c">00261</a> <span class="keywordtype">void</span> <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a>( <span class="keywordtype">void</span> ) {
+<a name="l00262"></a>00262   <span class="comment">// This needs to be static because the function initially returns normally.</span>
+<a name="l00263"></a>00263   <span class="keyword">static</span> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> temp_id;
+<a name="l00264"></a>00264 
+<a name="l00265"></a>00265   <a class="code" href="cr_8h.html#ac68ef77f5ea5f5dda5a2f046a2c96429" title="Initializes a function as a coroutine.">CR_THREAD_INIT</a>( );
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267   assert( ( this_id__ == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: this_id__ != CR_IDLE_THREAD_ID!\n&quot;</span> );
+<a name="l00268"></a>00268 
+<a name="l00269"></a>00269   <span class="comment">// This will be the entry point when longjump is called with cr_idle&#39;s context.</span>
+<a name="l00270"></a>00270   <span class="comment">// No need to perform another setjmp from within the loop; not much happening.</span>
+<a name="l00271"></a>00271   <span class="keywordflow">for</span> ( ; ; ) {
+<a name="l00272"></a>00272     <span class="comment">// Spin until a non-idle thread is activated.</span>
+<a name="l00273"></a>00273     <span class="keywordflow">if</span> ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) {
+<a name="l00274"></a>00274       <span class="keywordflow">continue</span>;
+<a name="l00275"></a>00275     }
 <a name="l00276"></a>00276 
-<a name="l00277"></a>00277     assert( ( this_id__ == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: this_id__ != CR_IDLE_THREAD_ID!\n&quot;</span> );
-<a name="l00278"></a>00278 
-<a name="l00279"></a>00279     <span class="comment">// This will be the entry point when longjump is called with cr_idle&#39;s context.</span>
-<a name="l00280"></a>00280     <span class="comment">// No need to perform another setjmp from within the loop; not much happening.</span>
-<a name="l00281"></a>00281     <span class="keywordflow">for</span> ( ; ; ) {
-<a name="l00282"></a>00282         <span class="comment">// Spin until a non-idle thread is activated.</span>
-<a name="l00283"></a>00283         <span class="keywordflow">if</span> ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) {
-<a name="l00284"></a>00284             <span class="keywordflow">continue</span>;
-<a name="l00285"></a>00285         }
-<a name="l00286"></a>00286 
-<a name="l00287"></a>00287         assert( ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7acd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a> ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: cr_g_activate_id == CR_INVALID_ID!\n&quot;</span> );
-<a name="l00288"></a>00288         assert( ( ( uint32_t ) <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> &lt;= <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp; <span class="stringliteral">&quot;cr_idle: cr_g_activate_id out of bounds!\n&quot;</span> );
-<a name="l00289"></a>00289         assert( ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != this_id__ ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: recursive coroutine call!\n&quot;</span> );
-<a name="l00290"></a>00290 
-<a name="l00291"></a>00291         temp_id             = <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>;
-<a name="l00292"></a>00292         <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>    = CR_IDLE_THREAD_ID;
-<a name="l00293"></a>00293         <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID;
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295         <span class="keywordflow">if</span> ( !setjmp( cr_g_context[ <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ].env ) ) {
-<a name="l00296"></a>00296             longjmp( cr_g_context[ temp_id ].env, <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a7f396d7461f79cb150ed6b69934f58ec">SETJMP_DFLT_RET_VAL</a> );
-<a name="l00297"></a>00297         } <span class="keywordflow">else</span> {
-<a name="l00298"></a>00298             <span class="comment">/* explicit block for the longjmp */</span> ;
-<a name="l00299"></a>00299         }
-<a name="l00300"></a>00300     }
-<a name="l00301"></a>00301 }
-<a name="l00302"></a>00302 
-<a name="l00317"></a><a class="code" href="cr_8h.html#ae30bdb4ef569c0678e4cb49829f11bbb">00317</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <a class="code" href="cr_8c.html#ae30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( <span class="keywordtype">void</span> ( *pFunc )( <span class="keywordtype">void</span> ) )
-<a name="l00318"></a>00318 {
-<a name="l00319"></a>00319     <span class="comment">// Increase the coroutine count.</span>
-<a name="l00320"></a>00320     cr_g_thread_cnt += 1;
-<a name="l00321"></a>00321 
-<a name="l00322"></a>00322     <span class="keywordflow">if</span> ( cr_g_thread_cnt == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) {
-<a name="l00323"></a>00323         <span class="keywordflow">if</span> ( pFunc != <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> ) {
-<a name="l00324"></a>00324             perror( <span class="stringliteral">&quot;cr_idle error: cr_g_thread_cnt != CR_IDLE_THREAD_ID. Note, coroutines shouldn&#39;t be registered prior to calling cr_init.&quot;</span> );
-<a name="l00325"></a>00325         }
-<a name="l00326"></a>00326     }
-<a name="l00327"></a>00327 
-<a name="l00328"></a>00328     assert( pFunc &amp;&amp; <span class="stringliteral">&quot;cr_register_thread: pFunc is invalid!\n&quot;</span> );
-<a name="l00329"></a>00329 
-<a name="l00330"></a>00330     <span class="comment">// Account fot the cr_idle coroutine (one reserved index in the array) in the assert check.</span>
-<a name="l00331"></a>00331     assert( ( cr_g_thread_cnt &lt; <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp;
-<a name="l00332"></a>00332                 <span class="stringliteral">&quot;cr_register_thread: [ cr_g_thread_cnt &lt; cr_g_context_cnt ] failed\n&quot;</span> );
-<a name="l00333"></a>00333 
-<a name="l00334"></a>00334     <span class="comment">// Assign the coroutine&#39;s ID and function pointer to its context structure</span>
-<a name="l00335"></a>00335     cr_g_context[ cr_g_thread_cnt ].id    = cr_g_thread_cnt;
-<a name="l00336"></a>00336     cr_g_context[ cr_g_thread_cnt ].pFunc = pFunc;
-<a name="l00337"></a>00337 
-<a name="l00338"></a>00338     <span class="comment">// cr_g_current_cr_id is used by the CR_THREAD_INIT macro to identify</span>
-<a name="l00339"></a>00339     <span class="comment">// the coroutine.</span>
-<a name="l00340"></a>00340     <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a> = cr_g_thread_cnt;
-<a name="l00341"></a>00341 
-<a name="l00342"></a>00342     <span class="keywordflow">if</span> ( !setjmp( cr_g_reg_func_env ) ) {
-<a name="l00343"></a>00343         pFunc( ); <span class="comment">// this function won&#39;t return normally</span>
-<a name="l00344"></a>00344     } <span class="keywordflow">else</span> {
-<a name="l00345"></a>00345         <span class="comment">/* explicit block for the longjmp */</span>
-<a name="l00346"></a>00346     ;
-<a name="l00347"></a>00347     }
-<a name="l00348"></a>00348 
-<a name="l00349"></a>00349     <span class="comment">// The function is now a coroutine.</span>
-<a name="l00350"></a>00350     <span class="comment">// This is where we return from CR_THREAD_INIT via the longjump.</span>
-<a name="l00351"></a>00351 
-<a name="l00352"></a>00352     <span class="comment">// A sentinal. At init the coroutine returned via a longjump so the return</span>
-<a name="l00353"></a>00353     <span class="comment">// point saved in the function&#39;s prolog is valid and will return here</span>
-<a name="l00354"></a>00354     <span class="comment">// should the coroutine actually return normally via the epilog code.</span>
-<a name="l00355"></a>00355     <span class="keywordflow">if</span> ( <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a> == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a01288475e3cc36707461f9b757d00e74">CR_SYSTEM_STARTED</a> ) {
-<a name="l00356"></a>00356         <span class="comment">// What to do?</span>
-<a name="l00357"></a>00357         <span class="comment">// - nothing and return normally</span>
-<a name="l00358"></a>00358         <span class="comment">// - yield to whatever is in cr_g_previous_cr_id</span>
-<a name="l00359"></a>00359         <span class="comment">// - yield to cr_idle</span>
-<a name="l00360"></a>00360         <span class="comment">// - assert</span>
-<a name="l00361"></a>00361         <span class="comment">// - exit</span>
-<a name="l00362"></a>00362 
-<a name="l00363"></a>00363         <span class="comment">// Note, cr_g_current_cr_id holds the ID of the exiting coroutine.</span>
-<a name="l00364"></a>00364         <span class="comment">// Note, cr_g_previous_cr_id holds the ID of the previous coroutine.</span>
+<a name="l00277"></a>00277     assert( ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7acd063e5de520275d94952e07b5f29b18">CR_INVALID_ID</a> ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: cr_g_activate_id == CR_INVALID_ID!\n&quot;</span> );
+<a name="l00278"></a>00278     assert( ( ( uint32_t ) <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> &lt;= <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp; <span class="stringliteral">&quot;cr_idle: cr_g_activate_id out of bounds!\n&quot;</span> );
+<a name="l00279"></a>00279     assert( ( <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a> != this_id__ ) &amp;&amp; <span class="stringliteral">&quot;cr_idle: recursive coroutine call!\n&quot;</span> );
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     temp_id     = <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>;
+<a name="l00282"></a>00282     <a class="code" href="cr_8c.html#a1345c6db4d2d1d939e7841da46704d8e" title="Holds the ID of the coroutine to be activated - by cr_idle.">cr_g_activate_id</a>  = CR_IDLE_THREAD_ID;
+<a name="l00283"></a>00283     <a class="code" href="cr_8c.html#ae7e93574baec3ae2b083c7f36916fbbd" title="The ID of the previously active coroutine.">cr_g_previous_cr_id</a> = CR_IDLE_THREAD_ID;
+<a name="l00284"></a>00284 
+<a name="l00285"></a>00285     <span class="keywordflow">if</span> ( !setjmp( cr_g_context[ <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ].env ) ) {
+<a name="l00286"></a>00286       longjmp( cr_g_context[ temp_id ].env, <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a7f396d7461f79cb150ed6b69934f58ec">SETJMP_DFLT_RET_VAL</a> );
+<a name="l00287"></a>00287     } <span class="keywordflow">else</span> {
+<a name="l00288"></a>00288       <span class="comment">/* explicit block for the longjmp */</span> ;
+<a name="l00289"></a>00289     }
+<a name="l00290"></a>00290   }
+<a name="l00291"></a>00291 }
+<a name="l00292"></a>00292 
+<a name="l00307"></a><a class="code" href="cr_8h.html#ae30bdb4ef569c0678e4cb49829f11bbb">00307</a> <a class="code" href="cr_8h.html#ae9a0f05a9df6e08a47e828db183fa186" title="Coroutine ID typedef.">cr_id_t</a> <a class="code" href="cr_8c.html#ae30bdb4ef569c0678e4cb49829f11bbb" title="Register a function as a coroutine thread.">cr_register_thread</a>( <span class="keywordtype">void</span> ( *pFunc )( <span class="keywordtype">void</span> ) ) {
+<a name="l00308"></a>00308   <span class="comment">// Increase the coroutine count.</span>
+<a name="l00309"></a>00309   cr_g_thread_cnt += 1;
+<a name="l00310"></a>00310 
+<a name="l00311"></a>00311   <span class="keywordflow">if</span> ( cr_g_thread_cnt == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a60cd04d936d5d89f7468cf9f5240a487">CR_IDLE_THREAD_ID</a> ) {
+<a name="l00312"></a>00312     <span class="keywordflow">if</span> ( pFunc != <a class="code" href="cr_8c.html#accd73b48023970380bfdecb56483976c" title="The internal system&amp;#39;s coroutine thread.">cr_idle</a> ) {
+<a name="l00313"></a>00313       perror( <span class="stringliteral">&quot;cr_idle error: cr_g_thread_cnt != CR_IDLE_THREAD_ID. Note, coroutines shouldn&#39;t be registered prior to calling cr_init.&quot;</span> );
+<a name="l00314"></a>00314     }
+<a name="l00315"></a>00315   }
+<a name="l00316"></a>00316 
+<a name="l00317"></a>00317   assert( pFunc &amp;&amp; <span class="stringliteral">&quot;cr_register_thread: pFunc is invalid!\n&quot;</span> );
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319   <span class="comment">// Account fot the cr_idle coroutine (one reserved index in the array) in the assert check.</span>
+<a name="l00320"></a>00320   assert( ( cr_g_thread_cnt &lt; <a class="code" href="cr_8c.html#a8238e77b653b2cc4905373b805fc3567" title="The number of elements in the coroutine context array.">cr_g_context_cnt</a>) &amp;&amp;
+<a name="l00321"></a>00321     <span class="stringliteral">&quot;cr_register_thread: [ cr_g_thread_cnt &lt; cr_g_context_cnt ] failed\n&quot;</span> );
+<a name="l00322"></a>00322 
+<a name="l00323"></a>00323   <span class="comment">// Assign the coroutine&#39;s ID and function pointer to its context structure</span>
+<a name="l00324"></a>00324   cr_g_context[ cr_g_thread_cnt ].id  = cr_g_thread_cnt;
+<a name="l00325"></a>00325   cr_g_context[ cr_g_thread_cnt ].pFunc = pFunc;
+<a name="l00326"></a>00326 
+<a name="l00327"></a>00327   <span class="comment">// cr_g_current_cr_id is used by the CR_THREAD_INIT macro to identify</span>
+<a name="l00328"></a>00328   <span class="comment">// the coroutine.</span>
+<a name="l00329"></a>00329   <a class="code" href="cr_8c.html#acf4ab64c8de56045d84e53b65dba7eb8" title="The ID of the coroutine that&amp;#39;s active.">cr_g_current_cr_id</a> = cr_g_thread_cnt;
+<a name="l00330"></a>00330 
+<a name="l00331"></a>00331   <span class="keywordflow">if</span> ( !setjmp( cr_g_reg_func_env ) ) {
+<a name="l00332"></a>00332     pFunc( ); <span class="comment">// this function won&#39;t return normally</span>
+<a name="l00333"></a>00333   } <span class="keywordflow">else</span> {
+<a name="l00334"></a>00334     <span class="comment">/* explicit block for the longjmp */</span> ;
+<a name="l00335"></a>00335   }
+<a name="l00336"></a>00336 
+<a name="l00337"></a>00337   <span class="comment">// The function is now a coroutine.</span>
+<a name="l00338"></a>00338   <span class="comment">// This is where we return from CR_THREAD_INIT via the longjump.</span>
+<a name="l00339"></a>00339 
+<a name="l00340"></a>00340   <span class="comment">// A sentinal. At init the coroutine returned via a longjump so the return</span>
+<a name="l00341"></a>00341   <span class="comment">// point saved in the function&#39;s prolog is valid and will return here</span>
+<a name="l00342"></a>00342   <span class="comment">// should the coroutine actually return normally via the epilog code.</span>
+<a name="l00343"></a>00343   <span class="keywordflow">if</span> ( <a class="code" href="cr_8c.html#a00999e3368c59592db0c069abf1f1296" title="Flag that&amp;#39;s set when CR_START is called.">cr_g_sys_started</a> == <a class="code" href="cr_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a01288475e3cc36707461f9b757d00e74">CR_SYSTEM_STARTED</a> ) {
+<a name="l00344"></a>00344     <span class="comment">// What to do?</span>
+<a name="l00345"></a>00345     <span class="comment">// - nothing and return normally</span>
+<a name="l00346"></a>00346     <span class="comment">// - yield to whatever is in cr_g_previous_cr_id</span>
+<a name="l00347"></a>00347     <span class="comment">// - yield to cr_idle</span>
+<a name="l00348"></a>00348     <span class="comment">// - assert</span>
+<a name="l00349"></a>00349     <span class="comment">// - exit</span>
+<a name="l00350"></a>00350 
+<a name="l00351"></a>00351     <span class="comment">// Note, cr_g_current_cr_id holds the ID of the exiting coroutine.</span>
+<a name="l00352"></a>00352     <span class="comment">// Note, cr_g_previous_cr_id holds the ID of the previous coroutine.</span>
+<a name="l00353"></a>00353 
+<a name="l00354"></a>00354     <span class="comment">// Note, it&#39;s not possible to remove the exiting coroutine from the</span>
+<a name="l00355"></a>00355     <span class="comment">// context array because the remaining coroutine ID&#39;s cannot be changed,</span>
+<a name="l00356"></a>00356     <span class="comment">// a coroutine&#39;s ID is the index into the context array.</span>
+<a name="l00357"></a>00357 
+<a name="l00358"></a>00358     <span class="comment">// Look at the cr_g_current_cr_id variable in a debugger to see the ID</span>
+<a name="l00359"></a>00359     <span class="comment">// of the exiting coroutine.</span>
+<a name="l00360"></a>00360     assert( <a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">CR_ERROR_CR_EXITING</a> &amp;&amp; <span class="stringliteral">&quot;cr_register_thread: coruotine exiting!\n&quot;</span> );
+<a name="l00361"></a>00361 
+<a name="l00362"></a>00362     <span class="comment">// Pass EXIT_SUCCESS; we want any user registered clean-up functions to be called.</span>
+<a name="l00363"></a>00363     exit( EXIT_SUCCESS );
+<a name="l00364"></a>00364   }
 <a name="l00365"></a>00365 
-<a name="l00366"></a>00366         <span class="comment">// Note, it&#39;s not possible to remove the exiting coroutine from the</span>
-<a name="l00367"></a>00367         <span class="comment">// context array because the remaining coroutine ID&#39;s cannot be changed,</span>
-<a name="l00368"></a>00368         <span class="comment">// a coroutine&#39;s ID is the index into the context array.</span>
-<a name="l00369"></a>00369 
-<a name="l00370"></a>00370         <span class="comment">// Look at the cr_g_current_cr_id variable in a debugger to see the ID</span>
-<a name="l00371"></a>00371         <span class="comment">// of the exiting coroutine.</span>
-<a name="l00372"></a>00372         assert( <a class="code" href="cr_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba84eb6a791d344cea4fadd2638f7b460e">CR_ERROR_CR_EXITING</a> &amp;&amp; <span class="stringliteral">&quot;cr_register_thread: coruotine exiting!\n&quot;</span> );
-<a name="l00373"></a>00373 
-<a name="l00374"></a>00374         <span class="comment">// Pass EXIT_SUCCESS; we want any user registered clean-up functions to be called.</span>
-<a name="l00375"></a>00375         exit( EXIT_SUCCESS );
-<a name="l00376"></a>00376     }
-<a name="l00377"></a>00377 
-<a name="l00378"></a>00378     <span class="keywordflow">return</span> cr_g_thread_cnt;
-<a name="l00379"></a>00379 }
-<a name="l00380"></a>00380 
-<a name="l00381"></a>00381 <span class="comment">// end of file</span>
+<a name="l00366"></a>00366   <span class="keywordflow">return</span> cr_g_thread_cnt;
+<a name="l00367"></a>00367 }
+<a name="l00368"></a>00368 
+<a name="l00369"></a>00369 <span class="comment">// end of file</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 09:38:58 for cr_lib by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 10:41:01 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

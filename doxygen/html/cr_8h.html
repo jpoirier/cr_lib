@@ -11,7 +11,7 @@
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li><a href="main.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
@@ -42,6 +42,20 @@
 <code>#include &lt;stdbool.h&gt;</code><br/>
 <code>#include &lt;fenv.h&gt;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
+<div class="dynheader">
+Include dependency graph for cr.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h__incl.png" border="0" usemap="#cr_8h" alt=""/></div>
+<map name="cr_8h" id="cr_8h">
+</map>
+</div>
+<div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h__dep__incl.png" border="0" usemap="#cr_8hdep" alt=""/></div>
+<map name="cr_8hdep" id="cr_8hdep">
+</map>
+</div>
 
 <p><a href="cr_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -341,7 +355,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00203">203</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00198">198</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -365,7 +379,16 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>This coroutine thread is used in conjunction with the cr_g_activate_id variable. cr_g_activate_id can be set to a coroutine's ID, e.g. in an ISR handler, and this function will activate the coroutine. This will work only if this function is explicitly called via CR_YIELD.</p>
 <dl class="attention"><dt><b>Attention:</b></dt><dd>This coroutine thread must be explicitly called for it to run. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00270">270</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00261">261</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h_accd73b48023970380bfdecb56483976c_icgraph.png" border="0" usemap="#cr_8h_accd73b48023970380bfdecb56483976c_icgraph" alt=""/></div>
+<map name="cr_8h_accd73b48023970380bfdecb56483976c_icgraph" id="cr_8h_accd73b48023970380bfdecb56483976c_icgraph">
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -405,7 +428,16 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 </dl>
 <dl class="attention"><dt><b>Attention:</b></dt><dd>This initialization function must be the first function called in the library. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00245">245</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00238">238</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h_aca6b87323f9ce0bf21b3f06209a97989_cgraph.png" border="0" usemap="#cr_8h_aca6b87323f9ce0bf21b3f06209a97989_cgraph" alt=""/></div>
+<map name="cr_8h_aca6b87323f9ce0bf21b3f06209a97989_cgraph" id="cr_8h_aca6b87323f9ce0bf21b3f06209a97989_cgraph">
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -436,7 +468,25 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <dl class="return"><dt><b>Returns:</b></dt><dd>The ID of the registered coroutine. </dd></dl>
 <dl class="attention"><dt><b>Attention:</b></dt><dd>All coroutine thread registration must be completed before calling CR_START. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00317">317</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00307">307</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_cgraph.png" border="0" usemap="#cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_cgraph" alt=""/></div>
+<map name="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_cgraph" id="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_cgraph">
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_icgraph.png" border="0" usemap="#cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_icgraph" alt=""/></div>
+<map name="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_icgraph" id="cr_8h_ae30bdb4ef569c0678e4cb49829f11bbb_icgraph">
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -459,7 +509,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>Resets the system to an initial state. </p>
 <p>This function sets all the system's global variables to their original state. </p>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00225">225</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00219">219</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -478,7 +528,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>Pointer to the user defined array of coroutine contexts. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00164">164</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00159">159</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -496,7 +546,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>The number of elements in the coroutine context array. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00169">169</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00164">164</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -514,7 +564,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>The ID of the coroutine that's active. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00183">183</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00178">178</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -532,7 +582,7 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>The ID of the previously active coroutine. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00188">188</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00183">183</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
@@ -550,12 +600,12 @@ jmp_buf&nbsp;</td><td class="memItemRight" valign="bottom"><b>cr_g_reg_func_env<
 <p>Flag that's set when CR_START is called. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>For internal use only. </dd></dl>
 
-<p>Definition at line <a class="el" href="cr_8c_source.html#l00178">178</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
+<p>Definition at line <a class="el" href="cr_8c_source.html#l00173">173</a> of file <a class="el" href="cr_8c_source.html">cr.c</a>.</p>
 
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 09:38:58 for cr_lib by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 10:41:01 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

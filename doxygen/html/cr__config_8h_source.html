@@ -11,7 +11,7 @@
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li><a href="main.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
@@ -34,111 +34,111 @@
 <a name="l00019"></a>00019 <span class="preprocessor"></span>
 <a name="l00020"></a>00020 <span class="comment">//------------------------------------------------------------------------------</span>
 <a name="l00021"></a>00021 <span class="comment">//------------------------------------------------------------------------------</span>
-<a name="l00026"></a>00026 <span class="comment"></span><span class="comment">//#undef          NPRINTF</span>
-<a name="l00027"></a><a class="code" href="cr__config_8h.html#a869fb889b331af26f9622355a458bdbb">00027</a> <span class="preprocessor">#define         NPRINTF</span>
+<a name="l00026"></a>00026 <span class="comment"></span><span class="comment">//#undef  NPRINTF</span>
+<a name="l00027"></a><a class="code" href="cr__config_8h.html#a869fb889b331af26f9622355a458bdbb">00027</a> <span class="preprocessor">#define NPRINTF</span>
 <a name="l00028"></a>00028 <span class="preprocessor"></span>
-<a name="l00033"></a>00033 <span class="comment">//#undef          NDPRINTF</span>
-<a name="l00034"></a><a class="code" href="cr__config_8h.html#ae7206eb8cc0f94759d5cb60adbab8090">00034</a> <span class="preprocessor">#define         NDPRINTF</span>
+<a name="l00033"></a>00033 <span class="comment">//#undef  NDPRINTF</span>
+<a name="l00034"></a><a class="code" href="cr__config_8h.html#ae7206eb8cc0f94759d5cb60adbab8090">00034</a> <span class="preprocessor">#define NDPRINTF</span>
 <a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00040"></a>00040 <span class="comment">//#undef          NEPRINTF</span>
-<a name="l00041"></a><a class="code" href="cr__config_8h.html#aa200f6e1e47c14c0589aeaab512c5b21">00041</a> <span class="preprocessor">#define         NEPRINTF</span>
+<a name="l00040"></a>00040 <span class="comment">//#undef  NEPRINTF</span>
+<a name="l00041"></a><a class="code" href="cr__config_8h.html#aa200f6e1e47c14c0589aeaab512c5b21">00041</a> <span class="preprocessor">#define NEPRINTF</span>
 <a name="l00042"></a>00042 <span class="preprocessor"></span>
 <a name="l00043"></a>00043 <span class="comment">// __func__ (C99) : The function where the printf is called</span>
 <a name="l00044"></a>00044 <span class="comment">// __LINE__ : The line where the printf is called</span>
 <a name="l00045"></a>00045 <span class="comment">// __FILE__ : The file where the printf is called</span>
 <a name="l00046"></a>00046 
 <a name="l00053"></a>00053 <span class="preprocessor">#ifdef NPRINTF</span>
-<a name="l00054"></a><a class="code" href="cr__config_8h.html#a9cf515ebc1330eb9cc663b2552286e14">00054</a> <span class="preprocessor"></span><span class="preprocessor">    #define PRINTF( fmt )</span>
-<a name="l00055"></a><a class="code" href="cr__config_8h.html#ae6e0a233142353eb48a95cf58bdb4f92">00055</a> <span class="preprocessor"></span><span class="preprocessor">    #define PRINTF_VA( fmt, ... )</span>
+<a name="l00054"></a><a class="code" href="cr__config_8h.html#a9cf515ebc1330eb9cc663b2552286e14">00054</a> <span class="preprocessor"></span><span class="preprocessor">  #define PRINTF( fmt )</span>
+<a name="l00055"></a><a class="code" href="cr__config_8h.html#ae6e0a233142353eb48a95cf58bdb4f92">00055</a> <span class="preprocessor"></span><span class="preprocessor">  #define PRINTF_VA( fmt, ... )</span>
 <a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">    #define PRINTF( fmt )                printf( fmt )</span>
-<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">    #define PRINTF_VA( fmt, ... )        printf( fmt, __VA_ARGS__ )</span>
+<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">  #define PRINTF( fmt )   printf( fmt )</span>
+<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">  #define PRINTF_VA( fmt, ... ) printf( fmt, __VA_ARGS__ )</span>
 <a name="l00059"></a>00059 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00060"></a>00060 <span class="preprocessor"></span>
 <a name="l00067"></a>00067 <span class="preprocessor">#ifdef NDPRINTF</span>
-<a name="l00068"></a><a class="code" href="cr__config_8h.html#accf6006906cc6f69483a802415ce8e3f">00068</a> <span class="preprocessor"></span><span class="preprocessor">    #define DPRINTF( fmt )</span>
-<a name="l00069"></a><a class="code" href="cr__config_8h.html#ae1cd4b13bc177e09548403138f14fe94">00069</a> <span class="preprocessor"></span><span class="preprocessor">    #define DPRINTF_VA( fmt, ... )</span>
+<a name="l00068"></a><a class="code" href="cr__config_8h.html#accf6006906cc6f69483a802415ce8e3f">00068</a> <span class="preprocessor"></span><span class="preprocessor">  #define DPRINTF( fmt )</span>
+<a name="l00069"></a><a class="code" href="cr__config_8h.html#ae1cd4b13bc177e09548403138f14fe94">00069</a> <span class="preprocessor"></span><span class="preprocessor">  #define DPRINTF_VA( fmt, ... )</span>
 <a name="l00070"></a>00070 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00071"></a>00071 <span class="preprocessor"></span><span class="preprocessor">    #define DPRINTF( fmt )                printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__ )</span>
-<a name="l00072"></a>00072 <span class="preprocessor"></span><span class="preprocessor">    #define DPRINTF_VA( fmt, ... )        printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )</span>
+<a name="l00071"></a>00071 <span class="preprocessor"></span><span class="preprocessor">  #define DPRINTF( fmt )    printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__ )</span>
+<a name="l00072"></a>00072 <span class="preprocessor"></span><span class="preprocessor">  #define DPRINTF_VA( fmt, ... )  printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )</span>
 <a name="l00073"></a>00073 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00074"></a>00074 <span class="preprocessor"></span>
 <a name="l00081"></a>00081 <span class="preprocessor">#ifdef NEPRINTF</span>
-<a name="l00082"></a><a class="code" href="cr__config_8h.html#ad9f414bfa7c91a6e48dbd7ca18f9cd73">00082</a> <span class="preprocessor"></span><span class="preprocessor">    #define EPRINTF( fmt )</span>
-<a name="l00083"></a><a class="code" href="cr__config_8h.html#aae9d6c746a7bfd44e3267ba5034a137e">00083</a> <span class="preprocessor"></span><span class="preprocessor">    #define EPRINTF_VA( fmt, ... )</span>
+<a name="l00082"></a><a class="code" href="cr__config_8h.html#ad9f414bfa7c91a6e48dbd7ca18f9cd73">00082</a> <span class="preprocessor"></span><span class="preprocessor">  #define EPRINTF( fmt )</span>
+<a name="l00083"></a><a class="code" href="cr__config_8h.html#aae9d6c746a7bfd44e3267ba5034a137e">00083</a> <span class="preprocessor"></span><span class="preprocessor">  #define EPRINTF_VA( fmt, ... )</span>
 <a name="l00084"></a>00084 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="preprocessor">    #define EPRINTF( fmt )                printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__ )</span>
-<a name="l00086"></a>00086 <span class="preprocessor"></span><span class="preprocessor">    #define EPRINTF_VA( fmt, ... )        printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )</span>
+<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="preprocessor">  #define EPRINTF( fmt )    printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__ )</span>
+<a name="l00086"></a>00086 <span class="preprocessor"></span><span class="preprocessor">  #define EPRINTF_VA( fmt, ... )  printf( &quot;[%s:%s:%d] &quot; fmt, __FILE__, __func__, __LINE__, __VA_ARGS__ )</span>
 <a name="l00087"></a>00087 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00088"></a>00088 <span class="preprocessor"></span>
 <a name="l00089"></a>00089 
 <a name="l00090"></a>00090 <span class="comment">/*----------------------- Language Standards -----------------------------------</span>
-<a name="l00091"></a>00091 <span class="comment">- C89           __STDC__                                    ANSI X3.159-1989</span>
-<a name="l00092"></a>00092 <span class="comment">- C90           __STDC_VERSION__                            ISO/IEC 9899:1990</span>
-<a name="l00093"></a>00093 <span class="comment">- C94           __STDC_VERSION__        = 199409L           ISO/IEC 9899-1:1994</span>
-<a name="l00094"></a>00094 <span class="comment">- C99           __STDC_VERSION__        = 199901L           ISO/IEC 9899:1999</span>
-<a name="l00095"></a>00095 <span class="comment">- C++98         __cplusplus             = 199707L           ISO/IEC 14882:1998</span>
-<a name="l00096"></a>00096 <span class="comment">- C++/CLI       __cplusplus_cli         = 200406L           ECMA-372</span>
-<a name="l00097"></a>00097 <span class="comment">- EC++          __embedded_cplusplus                        Embedded C++</span>
+<a name="l00091"></a>00091 <span class="comment">- C89   __STDC__        ANSI X3.159-1989</span>
+<a name="l00092"></a>00092 <span class="comment">- C90   __STDC_VERSION__      ISO/IEC 9899:1990</span>
+<a name="l00093"></a>00093 <span class="comment">- C94   __STDC_VERSION__  = 199409L ISO/IEC 9899-1:1994</span>
+<a name="l00094"></a>00094 <span class="comment">- C99   __STDC_VERSION__  = 199901L ISO/IEC 9899:1999</span>
+<a name="l00095"></a>00095 <span class="comment">- C++98   __cplusplus   = 199707L ISO/IEC 14882:1998</span>
+<a name="l00096"></a>00096 <span class="comment">- C++/CLI __cplusplus_cli   = 200406L ECMA-372</span>
+<a name="l00097"></a>00097 <span class="comment">- EC++  __embedded_cplusplus        Embedded C++</span>
 <a name="l00098"></a>00098 <span class="comment">------------------------------------------------------------------------------*/</span>
 <a name="l00099"></a>00099 <span class="comment">// Note that not all compliant compilers provide the correct pre-defined macros.</span>
 <a name="l00100"></a>00100 <span class="preprocessor">#ifdef __STDC__</span>
-<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="preprocessor">    #define PREDEF_STANDARD_C_1989</span>
+<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="preprocessor">  #define PREDEF_STANDARD_C_1989</span>
 <a name="l00102"></a>00102 <span class="preprocessor"></span>
-<a name="l00103"></a>00103 <span class="preprocessor">    #ifdef __STDC_VERSION__</span>
-<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">        #define PREDEF_STANDARD_C_1990</span>
+<a name="l00103"></a>00103 <span class="preprocessor">  #ifdef __STDC_VERSION__</span>
+<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">    #define PREDEF_STANDARD_C_1990</span>
 <a name="l00105"></a>00105 <span class="preprocessor"></span>
-<a name="l00106"></a>00106 <span class="preprocessor">        #if ( __STDC_VERSION__ &gt;= 199409L )</span>
-<a name="l00107"></a>00107 <span class="preprocessor"></span><span class="preprocessor">            #define PREDEF_STANDARD_C_1994</span>
-<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
+<a name="l00106"></a>00106 <span class="preprocessor">    #if ( __STDC_VERSION__ &gt;= 199409L )</span>
+<a name="l00107"></a>00107 <span class="preprocessor"></span><span class="preprocessor">      #define PREDEF_STANDARD_C_1994</span>
+<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
 <a name="l00109"></a>00109 <span class="preprocessor"></span>
-<a name="l00110"></a>00110 <span class="preprocessor">        #if ( __STDC_VERSION__ &gt;= 199901L )</span>
-<a name="l00111"></a>00111 <span class="preprocessor"></span><span class="preprocessor">            #define PREDEF_STANDARD_C_1999</span>
-<a name="l00112"></a>00112 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
-<a name="l00113"></a>00113 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00110"></a>00110 <span class="preprocessor">    #if ( __STDC_VERSION__ &gt;= 199901L )</span>
+<a name="l00111"></a>00111 <span class="preprocessor"></span><span class="preprocessor">      #define PREDEF_STANDARD_C_1999</span>
+<a name="l00112"></a>00112 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00113"></a>00113 <span class="preprocessor"></span><span class="preprocessor">  #endif</span>
 <a name="l00114"></a>00114 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00115"></a>00115 <span class="preprocessor"></span>
 <a name="l00116"></a>00116 <span class="preprocessor">#ifndef __cplusplus</span>
-<a name="l00117"></a>00117 <span class="preprocessor"></span><span class="preprocessor">    #if !defined( __DMC__ ) &amp;&amp; !defined( _MSC_VER )</span>
-<a name="l00118"></a>00118 <span class="preprocessor"></span><span class="preprocessor">        #ifndef PREDEF_STANDARD_C_1999</span>
-<a name="l00119"></a>00119 <span class="preprocessor"></span><span class="preprocessor">            #error &quot;ISO C99 compiler is required for this code to compile&quot;</span>
-<a name="l00120"></a>00120 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
-<a name="l00121"></a>00121 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00117"></a>00117 <span class="preprocessor"></span><span class="preprocessor">  #if !defined( __DMC__ ) &amp;&amp; !defined( _MSC_VER )</span>
+<a name="l00118"></a>00118 <span class="preprocessor"></span><span class="preprocessor">    #ifndef PREDEF_STANDARD_C_1999</span>
+<a name="l00119"></a>00119 <span class="preprocessor"></span><span class="preprocessor">      #error &quot;ISO C99 compiler is required for this code to compile&quot;</span>
+<a name="l00120"></a>00120 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00121"></a>00121 <span class="preprocessor"></span><span class="preprocessor">  #endif</span>
 <a name="l00122"></a>00122 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00123"></a>00123 <span class="preprocessor"></span>
 <a name="l00124"></a>00124 <span class="comment">//------------------------------------------------------------------------------</span>
 <a name="l00125"></a>00125 <span class="comment">//------------------------------------------------------------------------------</span>
 <a name="l00126"></a>00126 <span class="preprocessor">#ifdef __INTEL_COMPILER</span>
-<a name="l00127"></a>00127 <span class="preprocessor"></span><span class="preprocessor">    #pragma warning (disable: 279)</span>
+<a name="l00127"></a>00127 <span class="preprocessor"></span><span class="preprocessor">  #pragma warning (disable: 279)</span>
 <a name="l00128"></a>00128 <span class="preprocessor"></span>
-<a name="l00129"></a>00129     <span class="comment">// OS X</span>
-<a name="l00130"></a>00130 <span class="preprocessor">    #ifdef __APPLE__</span>
-<a name="l00131"></a>00131 <span class="preprocessor"></span>        <span class="comment">// none</span>
-<a name="l00132"></a>00132 <span class="preprocessor">    #endif</span>
+<a name="l00129"></a>00129   <span class="comment">// OS X</span>
+<a name="l00130"></a>00130 <span class="preprocessor">  #ifdef __APPLE__</span>
+<a name="l00131"></a>00131 <span class="preprocessor"></span>    <span class="comment">// none</span>
+<a name="l00132"></a>00132 <span class="preprocessor">  #endif</span>
 <a name="l00133"></a>00133 <span class="preprocessor"></span>
-<a name="l00134"></a>00134     <span class="comment">// GNUC on *nix</span>
-<a name="l00135"></a>00135 <span class="preprocessor">    #if !defined( __APPLE__ ) &amp;&amp; defined( __GNUC__ )</span>
-<a name="l00136"></a>00136 <span class="preprocessor"></span><span class="preprocessor">        #define restrict    __restrict</span>
-<a name="l00137"></a>00137 <span class="preprocessor"></span><span class="preprocessor">        #define inline      __inline</span>
-<a name="l00138"></a>00138 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00134"></a>00134   <span class="comment">// GNUC on *nix</span>
+<a name="l00135"></a>00135 <span class="preprocessor">  #if !defined( __APPLE__ ) &amp;&amp; defined( __GNUC__ )</span>
+<a name="l00136"></a>00136 <span class="preprocessor"></span><span class="preprocessor">    #define restrict    __restrict</span>
+<a name="l00137"></a>00137 <span class="preprocessor"></span><span class="preprocessor">    #define inline      __inline</span>
+<a name="l00138"></a>00138 <span class="preprocessor"></span><span class="preprocessor">  #endif</span>
 <a name="l00139"></a>00139 <span class="preprocessor"></span>
-<a name="l00140"></a>00140     <span class="comment">// *MS VC++ with Intel compiler</span>
-<a name="l00141"></a>00141 <span class="preprocessor">    #if defined( _MSC_VER ) &amp;&amp; !defined( __APPLE__ ) &amp;&amp; !defined( __GNUC__ )</span>
-<a name="l00142"></a>00142 <span class="preprocessor"></span><span class="preprocessor">        #define alloca  _alloca</span>
+<a name="l00140"></a>00140   <span class="comment">// *MS VC++ with Intel compiler</span>
+<a name="l00141"></a>00141 <span class="preprocessor">  #if defined( _MSC_VER ) &amp;&amp; !defined( __APPLE__ ) &amp;&amp; !defined( __GNUC__ )</span>
+<a name="l00142"></a>00142 <span class="preprocessor"></span><span class="preprocessor">    #define alloca  _alloca</span>
 <a name="l00143"></a>00143 <span class="preprocessor"></span>
-<a name="l00144"></a>00144 <span class="preprocessor">        #ifndef __cplusplus</span>
-<a name="l00145"></a>00145 <span class="preprocessor"></span><span class="preprocessor">            #define inline  __inline</span>
-<a name="l00146"></a>00146 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
-<a name="l00147"></a>00147 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00144"></a>00144 <span class="preprocessor">    #ifndef __cplusplus</span>
+<a name="l00145"></a>00145 <span class="preprocessor"></span><span class="preprocessor">      #define inline  __inline</span>
+<a name="l00146"></a>00146 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00147"></a>00147 <span class="preprocessor"></span><span class="preprocessor">  #endif</span>
 <a name="l00148"></a>00148 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00149"></a>00149 <span class="preprocessor"></span>
 <a name="l00150"></a>00150 <span class="comment">// *MS VC++ only</span>
 <a name="l00151"></a>00151 <span class="preprocessor">#if defined( _MSC_VER ) &amp;&amp; !defined( __INTEL_COMPILER )</span>
-<a name="l00152"></a>00152 <span class="preprocessor"></span><span class="preprocessor">    #ifndef __cplusplus</span>
-<a name="l00153"></a>00153 <span class="preprocessor"></span><span class="preprocessor">        #define inline  __inline</span>
-<a name="l00154"></a>00154 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00152"></a>00152 <span class="preprocessor"></span><span class="preprocessor">  #ifndef __cplusplus</span>
+<a name="l00153"></a>00153 <span class="preprocessor"></span><span class="preprocessor">    #define inline  __inline</span>
+<a name="l00154"></a>00154 <span class="preprocessor"></span><span class="preprocessor">  #endif</span>
 <a name="l00155"></a>00155 <span class="preprocessor"></span>
-<a name="l00156"></a>00156 <span class="preprocessor">    #define restrict    __restrict</span>
+<a name="l00156"></a>00156 <span class="preprocessor">  #define restrict    __restrict</span>
 <a name="l00157"></a>00157 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00158"></a>00158 <span class="preprocessor"></span>
 <a name="l00159"></a>00159 
@@ -157,7 +157,7 @@
 <a name="l00172"></a>00172 <span class="comment">// end of file</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 09:38:58 for cr_lib by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Jun 25 2010 10:41:01 for cr_lib by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
