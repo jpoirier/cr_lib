@@ -3,22 +3,16 @@
 # To compile without debugging enabled add the following to the command line:  debug=false 
 # To compile without optimizations enabled add the following to the command line:  noopt=true 
 
-Platform = darwin  #Win32
-EXE_EXT = #.exe
+NAME = $(shell uname | tr A-Z a-z)
 
-ifeq ($(OSTYPE),linux)
-    Platform = LINUX
-    EXE_EXT =
+EXE_EXT =
+
+ifeq (mingw,$(findstring windows, $(NAME)))
+    EXE_EXT = .exe
 endif
 
-ifeq ($(OSTYPE),bsd)
-    Platform = BSD
-    EXE_EXT =
-endif
-
-ifeq ($(OSTYPE),darwin*)
-    Platform = OSX
-    EXE_EXT =
+ifeq (mingw,$(findstring mingw, $(NAME)))
+    EXE_EXT = .exe
 endif
 
 CC = pgcc
@@ -60,7 +54,7 @@ all:
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_4.c -lpthread -o demo_4$(EXE_EXT)
 
 clean:
-	$(RM) *.o *.obj *.map demo_*$(EXE_EXT)
+	$(RM) -r *.o *.obj *.map demo_*.dSYM/ demo_1 demo_2 demo_3 demo_4
 
 
 

@@ -3,31 +3,17 @@
 # To compile without debugging enabled add the following to the command line:  debug=false 
 # To compile without optimizations enabled add the following to the command line:  noopt=true 
 
-# Set OSTYPE to:
-# 	win | lin | bsd | dar
+NAME = $(shell uname | tr A-Z a-z)
 
-OSTYPE = dar
+EXE_EXT =
 
-ifeq "$(OSTYPE)" "win"
-    Platform = MSW
-    EXE_EXT =
+ifeq (mingw,$(findstring windows, $(NAME)))
+    EXE_EXT = .exe
 endif
 
-ifeq "$(OSTYPE)" "lin"
-    Platform = LINUX
-    EXE_EXT =
+ifeq (mingw,$(findstring mingw, $(NAME)))
+    EXE_EXT = .exe
 endif
-
-ifeq "$(OSTYPE)" "bsd"
-    Platform = BSD
-    EXE_EXT =
-endif
-
-ifeq "$(OSTYPE)" "dar"
-    Platform = OSX
-    EXE_EXT =
-endif
-
 
 
 CC = gcc
@@ -62,14 +48,13 @@ endif
 
 
 all:
-	@echo Platform: $(Platform)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_1.c -o demo_1$(EXE_EXT)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_2.c -o demo_2$(EXE_EXT)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_3.c -o demo_3$(EXE_EXT)
 	$(CC) $(INCLUDE) $(OPTIONS) ../cr.c demo_4.c -lpthread -o demo_4$(EXE_EXT)
 
 clean:
-	$(RM) *.o *.obj *.map demo_*$(EXE_EXT)
+	$(RM) -r *.o *.obj *.map demo_*.dSYM/ demo_1 demo_2 demo_3 demo_4
 
 
 

@@ -29,13 +29,13 @@
 
 #include "cr.h"
 
-static void Thread_A(void);
-static void Thread_B(void);
-static void Thread_C(void);
-static void Thread_D(void);
-static void cleanup(void);
-static void signal_handler(int signal);
-static void* isr_thread(void* args);
+static void Thread_A( void );
+static void Thread_B( void );
+static void Thread_C( void );
+static void Thread_D( void );
+static void cleanup( void );
+static void signal_handler( int signal );
+static void* isr_thread( void* args );
 
 //--------------- Some simulated ISR thread objects
 struct sched_param          isr_thread_sched;

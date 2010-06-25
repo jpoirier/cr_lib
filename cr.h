@@ -88,11 +88,13 @@ typedef struct CR_CONTEXT {
  *  registered as a coroutine. Also, a coroutine should never return normally.
  */
 #define CR_THREAD_INIT( )                                               \
+            static fenv_t envp;                                         \
             static cr_id_t this_id__;                                   \
             this_id__ = cr_g_current_cr_id;                             \
             if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {           \
+                fegetenv( &envp );                                      \
                 longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL );      \
-            } else { /* explicit block for the longjmp */ ; }
+            } else { fesetenv( &envp ); }
 
 /** \brief Starts the cr_lib system
  *
@@ -126,8 +128,9 @@ typedef struct CR_CONTEXT {
             assert( ( cr_g_current_cr_id != this_id__ ) && "CR_YIELD: recursive coroutine call!\n" );           \
             cr_g_previous_cr_id = this_id__;                                                                    \
             if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {                                                   \
+                fegetenv( &envp );                                                                              \
                 longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL );                         \
-            } else {  /* explicit block for the longjmp */ ; }
+            } else { fesetenv( &envp ); }
 
 
 

@@ -20,14 +20,13 @@
 
 #include "cr.h"
 
-static void Thread_A(void);
-static void Thread_B(void);
-static void worker(void);
-static void signal_handler(int signal);
+static void Thread_A( void );
+static void Thread_B( void );
+static void worker( void );
+static void signal_handler( int signal );
+static void cleanup( void);
 
-static void cleanup(void);
-
-void Thread_A( void)
+void Thread_A( void )
 {
     // A. the required init call
     CR_THREAD_INIT( );

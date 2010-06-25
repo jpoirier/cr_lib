@@ -20,12 +20,12 @@
 
 #include "cr.h"
 
-static void Thread_A(void);
-static void Thread_B(void);
-static void Thread_C(void);
-static void Thread_D(void);
-static void cleanup(void);
-static void signal_handler(int signal);
+static void Thread_A( void );
+static void Thread_B( void );
+static void Thread_C( void );
+static void Thread_D( void );
+static void cleanup( void );
+static void signal_handler( int signal );
 
 void Thread_A( void )
 {
