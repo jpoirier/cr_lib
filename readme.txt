@@ -19,7 +19,7 @@ Caveats
 -------
 - currently, the library assumes a coroutine never returns
 - setjmp doesn't save floating point environment
-- setjmp invocation must be done in the contexts described in the standard 
+- setjmp invocation must be done in the context described in the standard 
 
 
 ANSI C99 Standard text

@@ -1,7 +1,9 @@
 # use glob syntax.
 syntax: glob
 
+*.pdf
 
 *.pyc
 *~
 .DS_Store
+

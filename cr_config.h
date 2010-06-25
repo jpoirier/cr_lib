@@ -116,7 +116,7 @@
 #ifndef __cplusplus
     #if !defined( __DMC__ ) && !defined( _MSC_VER )
         #ifndef PREDEF_STANDARD_C_1999
-            #error "ISO C99 compiler is required for this code to compile and work properly"
+            #error "ISO C99 compiler is required for this code to compile"
         #endif
     #endif
 #endif

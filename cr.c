@@ -156,41 +156,41 @@ enum {
     CR_ERROR_CR_EXITING = 0 /*!< Used in asserts for clarity */
 };
 
-jmp_buf             cr_g_reg_func_env;
+jmp_buf                 cr_g_reg_func_env;
 
 /** \brief Pointer to the user defined array of coroutine contexts
  *  \note For internal use only.
  */
-CR_CONTEXT*         cr_g_context        = 0;
+CR_CONTEXT*             cr_g_context        = 0;
 
 /** \brief The number of elements in the coroutine context array
  *  \note For internal use only.
  */
-uint32_t            cr_g_context_cnt    = 0;
+uint32_t                cr_g_context_cnt    = 0;
 
 /** \brief Holds the ID of the coroutine to be activated - by cr_idle
  */
-cr_id_t             cr_g_activate_id    = CR_IDLE_THREAD_ID;
+cr_id_t                 cr_g_activate_id    = CR_IDLE_THREAD_ID;
 
 /** \brief Flag that's set when CR_START is called
  *  \note For internal use only.
  */
-int32_t             cr_g_sys_started    = false;
+int32_t                 cr_g_sys_started    = false;
 
 /** \brief The ID of the coroutine that's active
  *  \note For internal use only.
  */
-cr_id_t             cr_g_current_cr_id  = CR_IDLE_THREAD_ID;
+cr_id_t                 cr_g_current_cr_id  = CR_IDLE_THREAD_ID;
 
 /** \brief The ID of the previously active coroutine
  *  \note For internal use only.
  */
-cr_id_t             cr_g_previous_cr_id  = CR_IDLE_THREAD_ID;
+cr_id_t                 cr_g_previous_cr_id  = CR_IDLE_THREAD_ID;
 
 /** \brief The total number of registered coroutines
  *  \note For internal use only.
  */
-static int32_t      cr_g_thread_cnt      = CR_THREAD_CNT_INIT;
+static int32_t          cr_g_thread_cnt      = CR_THREAD_CNT_INIT;
 
 /** \brief Find the ID of a coroutine.
  *
