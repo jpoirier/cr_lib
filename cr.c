@@ -8,7 +8,7 @@
  *
  *  VERSION    DATE/AUTHOR              COMMENT
  *
- * test
+ *
  *
  *  LICENSE:
  *          see the license.txt file
