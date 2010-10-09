@@ -72,17 +72,17 @@
 		return 0;
 	}
 
-	coroutine 1					coroutine 2
-	-----------					-----------
+	coroutine 1							coroutine 2
+	-----------							-----------
 	void Thread_A( void ) {			void Thread_B( void ) {
-		CR_THREAD_INIT( );				CR_THREAD_INIT( );
+		CR_THREAD_INIT( );					CR_THREAD_INIT( );
 
-		for ( ; ; ) {					while ( 1 ) {
+		for ( ; ; ) {						while ( 1 ) {
 			// main body of code				// main body of code
 			CR_YIELD( Thread_B );				CR_YIELD( cr_idle );
-			// user code					// user code
-		}						}
-	}						}
+			// user code						// user code
+		}									}
+	}									}
 
 	*Note: locals within a corouitne thread should use the 'volatile' qualifier
 
@@ -156,31 +156,31 @@ jmp_buf			cr_g_reg_func_env;
 /** \brief Pointer to the user defined array of coroutine contexts
  *  \note For internal use only.
  */
-CR_CONTEXT*		cr_g_context		= 0;
+CR_CONTEXT*		cr_g_context 			= 0;
 
 /** \brief The number of elements in the coroutine context array
  *  \note For internal use only.
  */
-uint32_t		cr_g_context_cnt	= 0;
+uint32_t		cr_g_context_cnt		= 0;
 
 /** \brief Holds the ID of the coroutine to be activated - by cr_idle
  */
-cr_id_t			cr_g_activate_id	= CR_IDLE_THREAD_ID;
+cr_id_t			cr_g_activate_id		= CR_IDLE_THREAD_ID;
 
 /** \brief Flag that's set when CR_START is called
  *  \note For internal use only.
  */
-int32_t			cr_g_sys_started	= false;
+int32_t			cr_g_sys_started		= false;
 
 /** \brief The ID of the coroutine that's active
  *  \note For internal use only.
  */
-cr_id_t			cr_g_current_cr_id	= CR_IDLE_THREAD_ID;
+cr_id_t			cr_g_current_cr_id		= CR_IDLE_THREAD_ID;
 
 /** \brief The ID of the previously active coroutine
  *  \note For internal use only.
  */
-cr_id_t			cr_g_previous_cr_id	= CR_IDLE_THREAD_ID;
+cr_id_t			cr_g_previous_cr_id		= CR_IDLE_THREAD_ID;
 
 /** \brief The total number of registered coroutines
  *  \note For internal use only.
@@ -217,13 +217,13 @@ cr_id_t cr_get_id( void ( *pFunc )( void ) ) {
  *  This function sets all the system's global variables to their original state.
  */
 void cr_reset( void ) {
-	cr_g_context		= 0;
-	cr_g_context_cnt	= 0;
-	cr_g_thread_cnt		= CR_THREAD_CNT_INIT;
-	cr_g_previous_cr_id	= CR_INVALID_ID;
-	cr_g_current_cr_id	= CR_INVALID_ID;
-	cr_g_activate_id	= CR_IDLE_THREAD_ID;
-	cr_g_sys_started	= false;
+	cr_g_context			= 0;
+	cr_g_context_cnt		= 0;
+	cr_g_thread_cnt			= CR_THREAD_CNT_INIT;
+	cr_g_previous_cr_id		= CR_INVALID_ID;
+	cr_g_current_cr_id		= CR_INVALID_ID;
+	cr_g_activate_id		= CR_IDLE_THREAD_ID;
+	cr_g_sys_started		= false;
 }
 
 /** \brief cr_lib's initialization function.
@@ -278,7 +278,7 @@ void cr_idle( void ) {
 		assert( ( ( uint32_t ) cr_g_activate_id <= cr_g_context_cnt) && "cr_idle: cr_g_activate_id out of bounds!\n" );
 		assert( ( cr_g_activate_id != this_id__ ) && "cr_idle: recursive coroutine call!\n" );
 
-		temp_id			= cr_g_activate_id;
+		temp_id				= cr_g_activate_id;
 		cr_g_activate_id	= CR_IDLE_THREAD_ID;
 		cr_g_previous_cr_id	= CR_IDLE_THREAD_ID;
 
@@ -310,7 +310,8 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) ) {
 
 	if ( cr_g_thread_cnt == CR_IDLE_THREAD_ID ) {
 		if ( pFunc != cr_idle ) {
-			perror( "cr_idle error: cr_g_thread_cnt != CR_IDLE_THREAD_ID. Note, coroutines shouldn't be registered prior to calling cr_init." );
+			perror( "cr_idle error: cr_g_thread_cnt != CR_IDLE_THREAD_ID. \
+				Note, coroutines shouldn't be registered prior to calling cr_init." );
 		}
 	}
 
@@ -321,7 +322,7 @@ cr_id_t cr_register_thread( void ( *pFunc )( void ) ) {
 		"cr_register_thread: [ cr_g_thread_cnt < cr_g_context_cnt ] failed\n" );
 
 	// Assign the coroutine's ID and function pointer to its context structure
-	cr_g_context[ cr_g_thread_cnt ].id	= cr_g_thread_cnt;
+	cr_g_context[ cr_g_thread_cnt ].id		= cr_g_thread_cnt;
 	cr_g_context[ cr_g_thread_cnt ].pFunc	= pFunc;
 
 	// cr_g_current_cr_id is used by the CR_THREAD_INIT macro to identify

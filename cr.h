@@ -51,7 +51,7 @@ enum {
     SETJMP_DFLT_RET_VAL	=  1,	/*!< longjmp's required second paramter, which is setjmp's return value */
     CR_IDLE_THREAD_ID		=  0,	/*!< ID of the system's cr_idle coroutine */
     CR_SYSTEM_STARTED		= -1,	/*!< Sentinal flag used internally */
-    CR_INVALID_ID		= -1,	/*!< Returned by cr_get_id when an ID is not found */
+    CR_INVALID_ID			= -1,	/*!< Returned by cr_get_id when an ID is not found */
     CR_THREAD_CNT_INIT		= -1	/*!< Internal initialization value */
 };
 
@@ -87,13 +87,13 @@ typedef struct CR_CONTEXT {
  *  \attention This macro should be placed at the start of the function being
  *  registered as a coroutine. Also, a coroutine should never return normally.
  */
-#define CR_THREAD_INIT( )						\
-	static fenv_t envp;						\
-	static cr_id_t this_id__;					\
-	this_id__ = cr_g_current_cr_id;				\
-	if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {		\
-		fegetenv( &envp );					\
-		longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL );	\
+#define CR_THREAD_INIT( ) \
+	static fenv_t envp; \
+	static cr_id_t this_id__; \
+	this_id__ = cr_g_current_cr_id; \
+	if ( !setjmp( cr_g_context[ this_id__ ].env ) ) { \
+		fegetenv( &envp ); \
+		longjmp( cr_g_reg_func_env, SETJMP_DFLT_RET_VAL ); \
 	} else { fesetenv( &envp ); }
 
 /** \brief Starts the cr_lib system
@@ -105,12 +105,12 @@ typedef struct CR_CONTEXT {
  *  \hideinitializer
  *  \attention cr_init must have been called and coroutine registration completed
  */
-#define CR_START( func_name )											\
-	cr_g_previous_cr_id = CR_INVALID_ID;									\
-	cr_g_current_cr_id = cr_get_id( func_name );								\
-	assert( ( cr_g_current_cr_id != CR_INVALID_ID ) && "CR_START:  CR_INVALID_ID!\n" );			\
-	assert( ( ( uint32_t ) cr_g_current_cr_id < cr_g_context_cnt ) && "CR_START: ID out of bounds!\n" );	\
-	cr_g_sys_started = CR_SYSTEM_STARTED;									\
+#define CR_START( func_name ) \
+	cr_g_previous_cr_id = CR_INVALID_ID; \
+	cr_g_current_cr_id = cr_get_id( func_name ); \
+	assert( ( cr_g_current_cr_id != CR_INVALID_ID ) && "CR_START:  CR_INVALID_ID!\n" ); \
+	assert( ( ( uint32_t ) cr_g_current_cr_id < cr_g_context_cnt ) && "CR_START: ID out of bounds!\n" ); \
+	cr_g_sys_started = CR_SYSTEM_STARTED; \
 	longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL )
 
 /** \brief Explicitly yields to a coroutine
@@ -121,15 +121,15 @@ typedef struct CR_CONTEXT {
  *  \param func_name the name of a user coroutine or cr_idle
  *  \hideinitializer
  */
-#define CR_YIELD( func_name )											\
-	cr_g_current_cr_id = cr_get_id( func_name );								\
-	assert( ( cr_g_current_cr_id != CR_INVALID_ID ) && "CR_YIELD: CR_INVALID_ID!\n" );			\
-	assert( ( ( uint32_t ) cr_g_current_cr_id < cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n" );	\
-	assert( ( cr_g_current_cr_id != this_id__ ) && "CR_YIELD: recursive coroutine call!\n" );		\
-	cr_g_previous_cr_id = this_id__;									\
-	if ( !setjmp( cr_g_context[ this_id__ ].env ) ) {							\
-		fegetenv( &envp );										\
-		longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL );			\
+#define CR_YIELD( func_name ) \
+	cr_g_current_cr_id = cr_get_id( func_name ); \
+	assert( ( cr_g_current_cr_id != CR_INVALID_ID ) && "CR_YIELD: CR_INVALID_ID!\n" ); \
+	assert( ( ( uint32_t ) cr_g_current_cr_id < cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n" ); \
+	assert( ( cr_g_current_cr_id != this_id__ ) && "CR_YIELD: recursive coroutine call!\n" ); \
+	cr_g_previous_cr_id = this_id__; \
+	if ( !setjmp( cr_g_context[ this_id__ ].env ) ) { \
+		fegetenv( &envp ); \
+		longjmp( cr_g_context[ cr_g_current_cr_id ].env, SETJMP_DFLT_RET_VAL ); \
 	} else { fesetenv( &envp ); }
 
 
@@ -150,10 +150,10 @@ extern "C" {
 	extern cr_id_t		cr_g_activate_id;
 
 	/* User callable functions. */
-	extern void		cr_reset( void );
-	extern void		cr_init( CR_CONTEXT* cr_context, size_t cr_context_count );
+	extern void			cr_reset( void );
+	extern void			cr_init( CR_CONTEXT* cr_context, size_t cr_context_count );
 	extern cr_id_t		cr_get_id( void ( *pFunc )( void ) );
-	extern void		cr_idle( void );
+	extern void			cr_idle( void );
 	extern cr_id_t		cr_register_thread( void ( *pFunc )( void ) );
 
 #ifdef __cplusplus
