@@ -1,8 +1,12 @@
+cr_lib is a simple, portable, cooperative multitasking environment using coroutines. 
+
+It features a mechanism for exiting and re-entering a function in a non-standard way using the standard C library's setjmp and longjmp functions. Coroutine threads run one at a time, are persistent for the lifetime of the application, and each thread must be explicitly scheduled. cr_lib includes a system coroutine, called cr_idle, that can be used in conjunction with the global variable cr_g_activate_id to activate a coroutine. cr_g_activate_id could be used, for example, in an interrupt service routine (ISR) of an event driven system. cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educational purposes. An ANSI C99 compliant compiler is required. What is a coroutine: "A coroutine is represented by a closure (a code address and a referencing environment), into which we can jump by means of a nonlocal goto - in this case a special operation known as a transfer. In effect, coroutines are execution contexts that exist concurrently but execute one at a time, and transfer control to each other explicitly by name." From Programming Language Pragmatics by Morgan Kaufmann
+
 See the documentation: /doc/index.html
 
 hg
 --
-> hg commit -m '...put comments hereÉ'
+> hg commit -m '...put comments hereï¿½'
 > hg push
 
 
@@ -36,13 +40,13 @@ The setjmp macro
 ----------------
 An invocation of the setjmp macro shall appear only in one of the following contexts:
 
-Ñ the entire controlling expression of a selection or iteration statement;
-Ñ one operand of a relational or equality operator with the other operand an integer
+ï¿½ the entire controlling expression of a selection or iteration statement;
+ï¿½ one operand of a relational or equality operator with the other operand an integer
   constant expression, with the resulting expression being the entire controlling
   expression of a selection or iteration statement;
-Ñ the operand of a unary ! operator with the resulting expression being the entire
+ï¿½ the operand of a unary ! operator with the resulting expression being the entire
   controlling expression of a selection or iteration statement; or
-Ñ the entire expression of an expression statement (possibly cast to void).
+ï¿½ the entire expression of an expression statement (possibly cast to void).
 
 If the invocation appears in any other context, the behavior is undefined.
 
