@@ -1,6 +1,19 @@
 cr_lib is a simple, portable, cooperative multitasking environment using coroutines. 
 
-It features a mechanism for exiting and re-entering a function in a non-standard way using the standard C library's setjmp and longjmp functions. Coroutine threads run one at a time, are persistent for the lifetime of the application, and each thread must be explicitly scheduled. cr_lib includes a system coroutine, called cr_idle, that can be used in conjunction with the global variable cr_g_activate_id to activate a coroutine. cr_g_activate_id could be used, for example, in an interrupt service routine (ISR) of an event driven system. cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or educational purposes. An ANSI C99 compliant compiler is required. What is a coroutine: "A coroutine is represented by a closure (a code address and a referencing environment), into which we can jump by means of a nonlocal goto - in this case a special operation known as a transfer. In effect, coroutines are execution contexts that exist concurrently but execute one at a time, and transfer control to each other explicitly by name." From Programming Language Pragmatics by Morgan Kaufmann
+It features a mechanism for exiting and re-entering a function in a non-standard way using the 
+standard C library's setjmp and longjmp functions. Coroutine threads run one at a time, are persistent 
+for the lifetime of the application, and each thread must be explicitly scheduled. cr_lib includes a 
+system coroutine, called cr_idle, that can be used in conjunction with the global variable cr_g_activate_id 
+to activate a coroutine. cr_g_activate_id could be used, for example, in an interrupt service routine (ISR) 
+of an event driven system. cr_lib is probably most useful for micro-controllers, DSPs, small GPPs, or 
+educational purposes. An ANSI C99 compliant compiler is required. 
+
+What is a coroutine: "A coroutine is represented by a closure (a code address and a referencing environment), 
+into which we can jump by means of a nonlocal goto - in this case a special operation known as a transfer. 
+In effect, coroutines are execution contexts that exist concurrently but execute one at a time, and transfer 
+control to each other explicitly by name." 
+
+From Programming Language Pragmatics by Morgan Kaufmann
 
 See the documentation: /doc/index.html
 
