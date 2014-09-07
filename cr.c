@@ -54,52 +54,65 @@
 	example of initialization, registration, and start of cr_lib
 	------------------------------------------------------------
 
-	#define CONTEXT_ARRAY_CNT   ( 2 + 1 )
+	#define CONTEXT_ARRAY_CNT   (2 + 1)
 
-	CR_CONTEXT context_array[ CONTEXT_ARRAY_CNT ];
+	CR_CONTEXT context_array[CONTEXT_ARRAY_CNT];
 
-	int main( int argc, char* argv[ ] ) {
+	int main(int argc, char* argv[])
+	{
 		// 1. initialize cr_lib
-		cr_init( context_array, CONTEXT_ARRAY_CNT );
+		cr_init(context_array, CONTEXT_ARRAY_CNT);
 
 		// 2. register functions
-		cr_register_thread( Thread_A );
-		cr_register_thread( Thread_B );
+		cr_register_thread(Thread_A);
+		cr_register_thread(Thread_B);
 
 		// 3. bootstrap system
-		CR_START( Thread_A );
+		CR_START(Thread_A);
 
 		return 0;
 	}
 
-	coroutine 1							coroutine 2
-	-----------							-----------
-	void Thread_A( void ) {			void Thread_B( void ) {
-		CR_THREAD_INIT( );					CR_THREAD_INIT( );
-
-		for ( ; ; ) {						while ( 1 ) {
-			// main body of code				// main body of code
-			CR_YIELD( Thread_B );				CR_YIELD( cr_idle );
-			// user code						// user code
-		}									}
-	}									}
-
-	*Note: locals within a corouitne thread should use the 'volatile' qualifier
-
-	E.g.:
 	coroutine 1
 	-----------
-	void Thread_A( void ) {
+	void Thread_A(void)
+	{
+		CR_THREAD_INIT();
+
+		for (;;) {
+			// main body of code
+			CR_YIELD(Thread_B);
+			// user code
+		}
+	}
+
+	coroutine 2
+	-----------
+	void Thread_B(void)
+	{
+		CR_THREAD_INIT();
+		while (1) {
+			// main body of code
+			CR_YIELD(cr_idle);
+			// user code
+		}
+	}
+
+
+	Note: locals within a corouitne thread should use the 'volatile' qualifier, e.g.
+
+	void Thread_A(void)
+	{
 		// locals use the 'volatile' qualifier
 		int32_t volatile count = 0;
 
-		CR_THREAD_INIT( );
+		CR_THREAD_INIT();
 
-		for ( ;; ) {
+		for (;;) {
 			count += 1;
 
 			// main body of code
-			CR_YIELD( Thread_B );
+			CR_YIELD(Thread_B);
 			// user code
 		}
 	}
