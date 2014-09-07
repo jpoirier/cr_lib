@@ -1,7 +1,7 @@
 #
 # To compile: gmake -f makegcc
-# To compile without debugging enabled add the following to the command line:  debug=false 
-# To compile without optimizations enabled add the following to the command line:  noopt=true 
+# To compile without debugging enabled add the following to the command line:  debug=false
+# To compile without optimizations enabled add the following to the command line:  noopt=true
 
 NAME = $(shell uname | tr A-Z a-z)
 
@@ -18,7 +18,7 @@ endif
 
 CC = gcc
 INCLUDE = -I../ -I.
-OPTIONS = -std=c99 -Wpointer-arith -Wunused-function -Wmissing-declarations -Wmissing-prototypes
+OPTIONS = -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -std=c99 -Wpointer-arith -Wunused-function -Wmissing-declarations -Wmissing-prototypes
 
 ################################################################################
 # Set the debug mode
@@ -31,10 +31,10 @@ endif
 
 ################################################################################
 # Build status with the following compilers:
-# 	Breaks (all the demos)	: i686-apple-darwin9-gcc-4.2.1 with -O3/-O2  
+# 	Breaks (all the demos)	: i686-apple-darwin9-gcc-4.2.1 with -O3/-O2
 # 	Breaks (demo1 and demo2): i686-apple-darwin9-gcc-4.2.1 with -O1
-# 	Works (all)		: i686-apple-darwin9-gcc-4.0.1 with/without -O3/2/1 
-# 	Works (all)		: Mingw gcc v3.4.5 with/without -O3/2/1 
+# 	Works (all)		: i686-apple-darwin9-gcc-4.0.1 with/without -O3/2/1
+# 	Works (all)		: Mingw gcc v3.4.5 with/without -O3/2/1
 # 	Works (all)		: Intel compiler v11.0 with/without -O3/2/1
 # 	Works (all)		: Digital Mars Compiler v8.50 with/without -o
 # 	Works (all)		: tcc compiler v0.9.24
@@ -43,7 +43,7 @@ endif
 ifeq "$(opt)" "true"
     # nothing here
 else
-    OPTIONS += -O3 -Wuninitialized 
+    OPTIONS += -O3 -Wuninitialized
 endif
 
 
@@ -58,6 +58,6 @@ clean:
 
 
 
-	
+
 
 
