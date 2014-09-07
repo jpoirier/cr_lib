@@ -125,7 +125,7 @@ typedef struct CR_CONTEXT {
 	assert(((uint32_t)cr_g_current_cr_id < cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n"); \
 	assert((cr_g_current_cr_id != this_id__) && "CR_YIELD: recursive coroutine call!\n"); \
 	cr_g_previous_cr_id = this_id__; \
-	if (!setjmp(cr_g_context[ this_id__ ].env)) { \
+	if (!setjmp(cr_g_context[this_id__].env)) { \
 		longjmp(cr_g_context[cr_g_current_cr_id].env, SETJMP_DFLT_RET_VAL); \
 	} else { /* explicit block for the longjmp */ ; }
 
