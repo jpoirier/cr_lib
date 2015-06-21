@@ -104,12 +104,14 @@ typedef struct CR_CONTEXT {
  *  \attention cr_init must have been called and coroutine registration completed
  */
 #define CR_START( func_name ) \
-	cr_g_previous_cr_id = CR_INVALID_ID; \
-	cr_g_current_cr_id = cr_get_id(func_name); \
-	assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_START:  CR_INVALID_ID!\n"); \
-	assert(((uint32_t)cr_g_current_cr_id < cr_g_context_cnt) && "CR_START: ID out of bounds!\n"); \
-	cr_g_sys_started = CR_SYSTEM_STARTED; \
-	longjmp(cr_g_context[cr_g_current_cr_id].env, SETJMP_DFLT_RET_VAL)
+ 	do { \
+		cr_g_previous_cr_id = CR_INVALID_ID; \
+		cr_g_current_cr_id = cr_get_id(func_name); \
+		assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_START:  CR_INVALID_ID!\n"); \
+		assert(((uint32_t)cr_g_current_cr_id < cr_g_context_cnt) && "CR_START: ID out of bounds!\n"); \
+		cr_g_sys_started = CR_SYSTEM_STARTED; \
+		longjmp(cr_g_context[cr_g_current_cr_id].env, SETJMP_DFLT_RET_VAL); \
+	} while (0)
 
 /** \brief Explicitly yields to a coroutine
  *
@@ -120,15 +122,16 @@ typedef struct CR_CONTEXT {
  *  \hideinitializer
  */
 #define CR_YIELD( func_name ) \
-	cr_g_current_cr_id = cr_get_id(func_name); \
-	assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_YIELD: CR_INVALID_ID!\n"); \
-	assert(((uint32_t)cr_g_current_cr_id < cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n"); \
-	assert((cr_g_current_cr_id != this_id__) && "CR_YIELD: recursive coroutine call!\n"); \
-	cr_g_previous_cr_id = this_id__; \
-	if (!setjmp(cr_g_context[this_id__].env)) { \
-		longjmp(cr_g_context[cr_g_current_cr_id].env, SETJMP_DFLT_RET_VAL); \
-	} else { /* explicit block for the longjmp */ ; }
-
+  	do { \
+		cr_g_current_cr_id = cr_get_id(func_name); \
+		assert((cr_g_current_cr_id != CR_INVALID_ID) && "CR_YIELD: CR_INVALID_ID!\n"); \
+		assert(((uint32_t)cr_g_current_cr_id < cr_g_context_cnt) && "CR_YIELD: ID out of bounds!\n"); \
+		assert((cr_g_current_cr_id != this_id__) && "CR_YIELD: recursive coroutine call!\n"); \
+		cr_g_previous_cr_id = this_id__; \
+		if (!setjmp(cr_g_context[this_id__].env)) { \
+			longjmp(cr_g_context[cr_g_current_cr_id].env, SETJMP_DFLT_RET_VAL); \
+		} else { /* explicit block for the longjmp */ ; } \
+	} while (0)
 
 
 #ifdef __cplusplus
